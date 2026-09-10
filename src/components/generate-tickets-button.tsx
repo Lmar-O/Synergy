@@ -19,11 +19,13 @@ function SubmitButton() {
       disabled={pending}
       className="self-start rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background disabled:opacity-50"
     >
-      {pending ? "Generating… (10–30s)" : "Generate tickets"}
+      {pending ? "Generating…" : "Generate tickets"}
     </button>
   );
 }
 
+// Trigger for build-sequence step 5. This is not the real queue view (step
+// 6) — just enough to call the server action and see what landed in the DB.
 export function GenerateTicketsButton() {
   const [state, formAction] = useActionState(generateTickets, initialState);
 
@@ -39,9 +41,8 @@ export function GenerateTicketsButton() {
               className="rounded-md border border-black/10 px-3 py-2 dark:border-white/15"
             >
               <span className="font-medium">{ticket.title}</span>
-              <span className="text-black/60 dark:text-white/60">
-                {" "}
-                — {ticket.estimate_hours}h, priority {ticket.priority}
+              <span className="ml-2 text-black/60 dark:text-white/60">
+                {ticket.estimate_hours}h · priority {ticket.priority}
               </span>
             </li>
           ))}

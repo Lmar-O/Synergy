@@ -13,16 +13,13 @@ import {
 } from "@/lib/supabase/server";
 import type { Tables } from "@/lib/supabase/types";
 
-// OpenRouter, not OpenAI directly — one key reaches every model, so comparing
-// generations across models is a config change rather than a code change. That
-// is the whole point of logging `generations.model` per row.
-//
-// The default is a free model, chosen only because it is one of the few that
-// supports strict structured outputs. It is far weaker than GPT-4o: treat its
-// ticket quality as unrepresentative, and judge the prompt on a paid model.
-const OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1";
-const MODEL =
-  process.env.OPENROUTER_MODEL || "nvidia/nemotron-3-super-120b-a12b:free";
+// Gemini's OpenAI-compatible endpoint. Same `openai` SDK, same
+// zodResponseFormat/strict-schema plumbing a real OpenAI call would use —
+// only the base URL, key, and model change. Google's free tier is what OpenAI
+// lacks, and it's stable and documented, unlike OpenRouter's free-model
+// lineup and per-model structured-output support, which both shift often.
+const GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/";
+const MODEL = process.env.GEMINI_MODEL || "gemini-3.6-flash";
 
 const SYSTEM_PROMPT = `You are a technical project planner. Given a founder's project brief, break their CURRENT MILESTONE into a queue of concrete engineering tickets that get it done.
 
@@ -66,9 +63,9 @@ export async function generateTickets(
     return { message: "You need to be signed in." };
   }
 
-  const apiKey = process.env.OPENROUTER_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    return { message: "OPENROUTER_API_KEY is not set." };
+    return { message: "GEMINI_API_KEY is not set." };
   }
 
   const supabase = await createServerSupabaseClient();
@@ -84,7 +81,7 @@ export async function generateTickets(
     return { message: "Save a North Star before generating tickets." };
   }
 
-  const openai = new OpenAI({ apiKey, baseURL: OPENROUTER_BASE_URL });
+  const openai = new OpenAI({ apiKey, baseURL: GEMINI_BASE_URL });
 
   let completion;
   try {
