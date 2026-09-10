@@ -157,6 +157,7 @@ export type Database = {
           position: number
           priority: number
           status: Database["public"]["Enums"]["ticket_status"]
+          superseded_at: string | null
           tags: string[]
           title: string
           user_id: string
@@ -175,6 +176,7 @@ export type Database = {
           position?: number
           priority?: number
           status?: Database["public"]["Enums"]["ticket_status"]
+          superseded_at?: string | null
           tags?: string[]
           title: string
           user_id: string
@@ -193,6 +195,7 @@ export type Database = {
           position?: number
           priority?: number
           status?: Database["public"]["Enums"]["ticket_status"]
+          superseded_at?: string | null
           tags?: string[]
           title?: string
           user_id?: string

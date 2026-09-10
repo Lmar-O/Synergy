@@ -30,10 +30,52 @@ Rules:
 - Each ticket needs 1-6 concrete, testable acceptance criteria, not vague goals.
 - Respect the stated tech stack and constraints. Do not propose work on anything in the out-of-scope list.
 - Give each ticket a short "ref" you invent ("1", "2", ...) and a "depends_on" array of the refs of tickets that must finish first. A ticket with no prerequisites has an empty depends_on array. The dependency graph must have no cycles.
-- priority is 1 (do first) to 5 (do last), independent of dependency order — use it to flag which unblocked ticket matters most.`;
+- priority is 1 (do first) to 5 (do last), independent of dependency order — use it to flag which unblocked ticket matters most.
+- Work already listed as COMPLETED is finished. Never propose it again, and treat it as an existing foundation the new tickets build on.
+- Work listed as BLOCKED could not be finished, and the reason is given. Do not simply restate it — either route around it or break it into smaller steps that sidestep the stated blocker.`;
 
-function buildPrompt(northStar: Tables<"north_stars">) {
-  return [
+type TicketHistory = {
+  completed: { title: string }[];
+  blocked: { title: string; blocked_reason: string | null }[];
+};
+
+/**
+ * Regeneration is the same call as first generation, plus this. Without the
+ * completed list the model re-proposes finished work, which is the whole
+ * failure mode the regenerate button exists to avoid.
+ */
+function buildHistory({ completed, blocked }: TicketHistory) {
+  const sections: string[] = [];
+
+  if (completed.length > 0) {
+    sections.push(
+      ["COMPLETED — already built, do not propose again:"]
+        .concat(completed.map((ticket) => `- ${ticket.title}`))
+        .join("\n"),
+    );
+  }
+
+  if (blocked.length > 0) {
+    sections.push(
+      ["BLOCKED — could not be completed, route around these:"]
+        .concat(
+          blocked.map(
+            (ticket) =>
+              `- ${ticket.title} (blocker: ${ticket.blocked_reason ?? "unspecified"})`,
+          ),
+        )
+        .join("\n"),
+    );
+  }
+
+  return sections.join("\n\n");
+}
+
+function buildPrompt(
+  northStar: Tables<"north_stars">,
+  history: TicketHistory,
+) {
+  const brief = [
     `Product: ${northStar.product_name}`,
     `Core problem: ${northStar.core_problem}`,
     `Tech stack: ${northStar.tech_stack}`,
@@ -42,6 +84,9 @@ function buildPrompt(northStar: Tables<"north_stars">) {
     `Out of scope: ${northStar.out_of_scope || "none stated"}`,
     `Success criteria: ${northStar.success_criteria}`,
   ].join("\n");
+
+  const historyBlock = buildHistory(history);
+  return historyBlock ? `${brief}\n\n${historyBlock}` : brief;
 }
 
 export type GenerateTicketsState = { message?: string };
@@ -79,6 +124,29 @@ export async function generateTickets(
     return { message: "Save a North Star before generating tickets." };
   }
 
+  // Live rows only. Superseded tickets from an earlier regeneration are kept
+  // for completion-rate measurement, not for prompting.
+  const { data: liveTickets, error: liveError } = await supabase
+    .from("tickets")
+    .select("id, title, status, blocked_reason")
+    .is("superseded_at", null);
+
+  if (liveError) {
+    return { message: `Could not read your queue: ${liveError.message}` };
+  }
+
+  const live = liveTickets ?? [];
+  const history: TicketHistory = {
+    completed: live.filter((ticket) => ticket.status === "done"),
+    blocked: live.filter((ticket) => ticket.status === "blocked"),
+  };
+
+  // Captured before the insert, so the tickets this run creates can never
+  // supersede themselves.
+  const outgoingIds = live
+    .filter((ticket) => ticket.status === "queued")
+    .map((ticket) => ticket.id);
+
   const openai = new OpenAI({ apiKey, baseURL: GEMINI_BASE_URL });
 
   let completion;
@@ -87,7 +155,7 @@ export async function generateTickets(
       model: MODEL,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
-        { role: "user", content: buildPrompt(northStar) },
+        { role: "user", content: buildPrompt(northStar, history) },
       ],
       response_format: zodResponseFormat(
         ticketGenerationSchema,
@@ -163,11 +231,32 @@ export async function generateTickets(
     return { message: `Could not save tickets: ${insertError.message}` };
   }
 
+  // Supersede last. If this fails the user is left holding both queues, which
+  // they can recover from by regenerating again; superseding first and then
+  // failing the insert would leave them with nothing to work on at all.
+  if (outgoingIds.length > 0) {
+    const { error: supersedeError } = await supabase
+      .from("tickets")
+      .update({ superseded_at: new Date().toISOString() })
+      .in("id", outgoingIds);
+
+    if (supersedeError) {
+      return {
+        message: `Generated ${ticketRows.length} tickets, but could not retire the previous queue: ${supersedeError.message}`,
+      };
+    }
+  }
+
   // Without this /app keeps rendering the pre-generation queue — the reads are
   // per-request and uncached, so nothing else re-runs them.
   refresh();
 
+  const replaced =
+    outgoingIds.length > 0
+      ? ` Replaced ${outgoingIds.length} unstarted ticket${outgoingIds.length === 1 ? "" : "s"}.`
+      : "";
+
   return {
-    message: `Generated ${ticketRows.length} ticket${ticketRows.length === 1 ? "" : "s"}.`,
+    message: `Generated ${ticketRows.length} ticket${ticketRows.length === 1 ? "" : "s"}.${replaced}`,
   };
 }

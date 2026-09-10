@@ -44,16 +44,19 @@ export default async function AppPage() {
 
   if (!northStar) redirect("/onboarding");
 
-  // Deliberately every ticket the caller owns, not just those tied to the
+  // Deliberately every live ticket the caller owns, not just those tied to the
   // newest North Star. `depends_on` never crosses a generation, so several
   // DAGs coexist without corrupting the gating — and editing the brief does
-  // not silently strip work out of the queue. What regeneration should do with
-  // leftovers is step 7's problem. RLS scopes the rows to the caller.
+  // not silently strip work out of the queue. Regeneration retires what it
+  // replaces by stamping `superseded_at`, so filtering on it here is what
+  // keeps a stale plan from competing with a fresh one. RLS scopes the rows to
+  // the caller.
   const { data: tickets, error } = await supabase
     .from("tickets")
     .select(
       "id, number, title, body, estimate_hours, priority, position, status, depends_on, acceptance_criteria",
-    );
+    )
+    .is("superseded_at", null);
 
   const { current, stall, counts } = buildQueueView(tickets ?? []);
 
@@ -63,12 +66,20 @@ export default async function AppPage() {
         <h1 className="text-2xl font-semibold tracking-tight">
           {northStar.product_name}
         </h1>
-        <Link
-          href="/app/north-star"
-          className="text-sm underline underline-offset-4"
-        >
-          Edit brief
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/app/queue"
+            className="text-sm underline underline-offset-4"
+          >
+            Queue
+          </Link>
+          <Link
+            href="/app/north-star"
+            className="text-sm underline underline-offset-4"
+          >
+            Edit brief
+          </Link>
+        </div>
       </header>
 
       {counts.total > 0 && (
@@ -109,7 +120,16 @@ export default async function AppPage() {
       )}
 
       <div className="flex flex-col gap-3 border-t border-black/10 pt-6 dark:border-white/15">
-        <h2 className="text-sm font-medium">Generate tickets</h2>
+        <h2 className="text-sm font-medium">
+          {counts.total > 0 ? "Regenerate the queue" : "Generate tickets"}
+        </h2>
+        {counts.remaining > 0 && (
+          <p className="text-sm text-black/60 dark:text-white/60">
+            Replans from your current North Star. Your {counts.remaining}{" "}
+            unstarted ticket{counts.remaining === 1 ? "" : "s"} will be retired;
+            finished and blocked work is kept and fed back into the prompt.
+          </p>
+        )}
         <GenerateTicketsButton />
       </div>
     </main>
