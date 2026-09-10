@@ -1,5 +1,5 @@
-import { auth } from "@clerk/nextjs/server";
-import { createClient } from "@supabase/supabase-js";
+import { auth, currentUser } from "@clerk/nextjs/server";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 import type { Database, TablesInsert } from "./types";
 
@@ -42,6 +42,32 @@ export async function createServerSupabaseClient() {
   return createClient<Database>(url, key, {
     accessToken: async () => await getToken(),
   });
+}
+
+/**
+ * A `profiles` row must exist before any `north_stars` insert — there's an FK.
+ * Nothing creates one on Clerk sign-up yet (that's a `user.created` webhook,
+ * still open), so every write path that might be a user's first upserts its
+ * own profile first. The upsert is idempotent, so calling this on every save
+ * (not just the first) is harmless.
+ */
+export async function ensureProfile(
+  supabase: SupabaseClient<Database>,
+  userId: string,
+) {
+  const user = await currentUser();
+  const email =
+    user?.primaryEmailAddress?.emailAddress ??
+    user?.emailAddresses[0]?.emailAddress ??
+    `${userId}@unknown.local`;
+
+  const { error } = await supabase
+    .from("profiles")
+    .upsert({ id: userId, email }, { onConflict: "id" });
+
+  if (error) {
+    throw new Error(`profiles.upsert: ${error.message}`);
+  }
 }
 
 /**
