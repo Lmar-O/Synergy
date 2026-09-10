@@ -3,10 +3,11 @@
 import { randomUUID } from "node:crypto";
 
 import { auth } from "@clerk/nextjs/server";
+import { refresh } from "next/cache";
 import OpenAI from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 
-import { ticketGenerationSchema, type GeneratedTicket } from "@/lib/tickets";
+import { ticketGenerationSchema } from "@/lib/tickets";
 import {
   asTicketInsert,
   createServerSupabaseClient,
@@ -43,10 +44,7 @@ function buildPrompt(northStar: Tables<"north_stars">) {
   ].join("\n");
 }
 
-export type GenerateTicketsState = {
-  message?: string;
-  tickets?: Pick<GeneratedTicket, "title" | "estimate_hours" | "priority">[];
-};
+export type GenerateTicketsState = { message?: string };
 
 /**
  * Reads the highest-version North Star, asks the model for a dependency-DAG
@@ -165,12 +163,11 @@ export async function generateTickets(
     return { message: `Could not save tickets: ${insertError.message}` };
   }
 
+  // Without this /app keeps rendering the pre-generation queue — the reads are
+  // per-request and uncached, so nothing else re-runs them.
+  refresh();
+
   return {
     message: `Generated ${ticketRows.length} ticket${ticketRows.length === 1 ? "" : "s"}.`,
-    tickets: parsed.data.tickets.map((ticket) => ({
-      title: ticket.title,
-      estimate_hours: ticket.estimate_hours,
-      priority: ticket.priority,
-    })),
   };
 }
