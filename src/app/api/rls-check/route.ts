@@ -1,10 +1,11 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 import {
   asNorthStarInsert,
   asTicketInsert,
   createServerSupabaseClient,
+  ensureProfile,
 } from "@/lib/supabase/server";
 
 /**
@@ -93,25 +94,16 @@ export async function POST() {
     return NextResponse.json({ error: "Not signed in" }, { status: 401 });
   }
 
-  const user = await currentUser();
-  const email =
-    user?.primaryEmailAddress?.emailAddress ??
-    user?.emailAddresses[0]?.emailAddress ??
-    `${userId}@unknown.local`;
-
   const supabase = await createServerSupabaseClient();
 
-  // Step 4 replaces this with a real profile-creation path — most likely a
-  // Clerk webhook on user.created, so a profile exists before the first query.
-  const profile = await supabase
-    .from("profiles")
-    .upsert({ id: userId, email }, { onConflict: "id" })
-    .select()
-    .single();
-
-  if (profile.error) {
+  try {
+    await ensureProfile(supabase, userId);
+  } catch (error) {
     return NextResponse.json(
-      { step: "profiles.upsert", error: profile.error.message },
+      {
+        step: "profiles.upsert",
+        error: error instanceof Error ? error.message : String(error),
+      },
       { status: 500 },
     );
   }
