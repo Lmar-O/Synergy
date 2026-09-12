@@ -1,18 +1,9 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import Link from "next/link";
 
 import { LandingBloom } from "@/components/landing-bloom";
 
 import "./landing.css";
-
-// The design shipped this face as a base64 TrueType Collection inside its
-// <style>. It is unpacked to a standalone .ttf so next/font can self-host and
-// preload it instead of inlining 65KB into the stylesheet.
-const objectSans = localFont({
-  src: "./fonts/object-sans.ttf",
-  variable: "--font-object-sans",
-});
 
 export const metadata: Metadata = {
   title: "Synergy — Everything you need, in one place",
@@ -26,7 +17,7 @@ export const metadata: Metadata = {
  */
 export default function Home() {
   return (
-    <div className={`landing ${objectSans.variable}`}>
+    <div className="landing">
       <LandingBloom />
 
       {/* NAV */}
