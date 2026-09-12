@@ -21,15 +21,6 @@
         "/private/tmp/claude-501/-Users-lmaroria-Documents-GitHub-Synergy/c73008d9-a3d8-42ff-9ab6-41aee8830df0/scratchpad"
       ],
       "port": 4601
-    },
-    {
-      "name": "system-states-dev",
-      "runtimeExecutable": "sh",
-      "runtimeArgs": [
-        "-c",
-        "cd /private/tmp/claude-501/-Users-lmaroria-Documents-GitHub-Synergy/65dc328d-3b44-49d5-94d8-567640bf3306/scratchpad/wt-system-states && npm run dev -- --port 3111"
-      ],
-      "port": 3111
     }
   ]
 }
