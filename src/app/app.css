@@ -1,0 +1,188 @@
+/* Synergy app views — generated from design/system.css, which is the source of
+   truth (design.md). Do not hand-edit values here: change design/system.css and
+   regenerate. Two deliberate differences from that file:
+     - @font-face is dropped; --font-display points at next/font/local's
+       --font-object-sans, loaded in src/app/app/layout.tsx.
+     - .app.dark becomes a prefers-color-scheme media query, the dark strategy
+       the rest of the app already uses.
+   Scoped to .app, so it never touches globals.css or the landing page. */
+
+.app {
+  --primary: oklch(60% 0.22 265);
+  --primary-hover: oklch(48% 0.22 265);
+  --primary-soft: oklch(92% 0.08 265);
+  --primary-text: oklch(48% 0.22 265);
+  --mint: oklch(72% 0.20 155);
+  --mint-soft: oklch(93% 0.07 155);
+  --mint-text: oklch(48% 0.18 155);
+  --lime: oklch(84% 0.22 130);
+  --lime-soft: oklch(94% 0.09 130);
+  --lime-text: oklch(50% 0.20 130);
+  --peach: oklch(82% 0.16 42);
+  --peach-soft: oklch(95% 0.06 42);
+  --peach-text: oklch(52% 0.16 42);
+  --yellow: oklch(86% 0.16 95);
+  --yellow-soft: oklch(94% 0.12 95);
+  --yellow-text: oklch(52% 0.16 90);
+
+  --bg: #ffffff;
+  --rail: oklch(98% 0.01 265);
+  --card: #ffffff;
+  --surface: oklch(98% 0.01 265);
+  --surface-2: oklch(96% 0.015 265);
+  --text: #0d0d10;
+  --text-muted: #6b6b80;
+  --text-light: #9898aa;
+  --border: rgba(0,0,0,0.08);
+  --border-strong: rgba(0,0,0,0.14);
+  --on-dark: #ffffff;
+  --bloom-warm: oklch(76% 0.18 345 / 0.34);
+  --bloom-cool: oklch(80% 0.14 220 / 0.26);
+
+  --radius-sm: 8px; --radius-md: 14px; --radius-lg: 20px; --radius-xl: 28px; --radius-pill: 999px;
+  --font-display: var(--font-object-sans), system-ui, -apple-system, sans-serif;
+  --font-body: system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --shadow-card: 0 2px 10px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.05);
+  --shadow-float: 0 16px 48px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06);
+  --shadow-btn: 0 1px 3px rgba(0,0,0,0.2);
+  --ring-primary: 0 0 0 2px var(--primary-soft), 0 0 0 3px var(--primary);
+
+  font-family: var(--font-body); color: var(--text); background: var(--bg);
+  -webkit-font-smoothing: antialiased; line-height: 1.5; font-size: 14px;
+}
+/* The app's existing dark strategy is prefers-color-scheme (globals.css,
+   Tailwind v4's default), so the dark token set rides the same switch. */
+@media (prefers-color-scheme: dark) {
+  .app {
+    --primary: oklch(70% 0.19 265);
+    --primary-hover: oklch(78% 0.16 265);
+    --primary-soft: oklch(28% 0.08 265);
+    --primary-text: oklch(84% 0.11 265);
+    --mint: oklch(74% 0.18 155);
+    --mint-soft: oklch(26% 0.06 155);
+    --mint-text: oklch(82% 0.14 155);
+    --lime-soft: oklch(27% 0.07 130);
+    --lime-text: oklch(84% 0.16 130);
+    --peach: oklch(78% 0.15 42);
+    --peach-soft: oklch(27% 0.05 42);
+    --peach-text: oklch(84% 0.11 42);
+    --yellow-soft: oklch(27% 0.06 95);
+    --yellow-text: oklch(85% 0.12 95);
+
+    --bg: oklch(15% 0.012 265);
+    --rail: oklch(17% 0.012 265);
+    --card: oklch(19.5% 0.012 265);
+    --surface: oklch(19.5% 0.012 265);
+    --surface-2: oklch(23% 0.014 265);
+    --text: oklch(96% 0.006 265);
+    --text-muted: oklch(72% 0.02 265);
+    --text-light: oklch(56% 0.02 265);
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.15);
+    --on-dark: oklch(15% 0.012 265);
+    /* The landing is light-only. At the light alphas these read as muddy slabs
+       over a 15% ground rather than glow, so dark runs them at ~0.65x. */
+    --bloom-warm: oklch(76% 0.18 345 / 0.22);
+    --bloom-cool: oklch(80% 0.14 220 / 0.17);
+    --shadow-card: 0 2px 10px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06);
+    --shadow-float: 0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
+    --shadow-btn: 0 1px 3px rgba(0,0,0,0.5);
+  }
+}
+
+/* ---- Component primitives ---- */
+
+body { margin: 0; }
+.app * { box-sizing: border-box; }
+a { color: var(--primary-text); text-decoration: none; } a:hover { color: var(--primary); }
+.display { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.01em; }
+.mono { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.02em; }
+.caption { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); }
+.muted { color: var(--text-muted); }
+/* :not(.app) is load-bearing: the artboard root is `class="app {{theme}}"`, so in
+   light mode the theme value lands on the same element as this utility and would
+   otherwise repaint every default-coloured string on the page as --text-light. */
+.light:not(.app) { color: var(--text-light); }
+.ico { width: 16px; height: 16px; flex-shrink: 0; display: block; }
+.ico-20 { width: 20px; height: 20px; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-body); font-size: 14px; font-weight: 600; padding: 9px 20px; border-radius: var(--radius-pill); border: 1px solid transparent; cursor: pointer; line-height: 1.3; white-space: nowrap; }
+.btn-dark { background: var(--text); color: var(--bg); box-shadow: var(--shadow-btn); }
+.btn-primary { background: var(--primary); color: #fff; box-shadow: 0 2px 12px oklch(60% 0.22 265 / 0.175); }
+.btn-outline { background: transparent; color: var(--text-muted); border-color: var(--border-strong); }
+.btn-ghost { background: transparent; color: var(--text-muted); }
+.btn-sm { font-size: 13px; padding: 7px 14px; }
+.btn-xs { font-size: 12px; padding: 5px 12px; gap: 6px; }
+.is-disabled { opacity: 0.5; cursor: default; }
+
+.chip { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: var(--radius-pill); font-size: 11px; font-weight: 600; line-height: 16px; white-space: nowrap; }
+.chip-queued { background: var(--yellow-soft); color: var(--yellow-text); }
+.chip-active { background: var(--primary-soft); color: var(--primary-text); }
+.chip-done { background: var(--mint-soft); color: var(--mint-text); }
+.chip-blocked { background: var(--peach-soft); color: var(--peach-text); }
+.chip-neutral { background: var(--surface-2); color: var(--text-muted); }
+.chip-outline { background: transparent; color: var(--text-muted); border: 1px solid var(--border-strong); }
+
+.seg { display: inline-flex; gap: 2px; padding: 3px; background: var(--surface-2); border-radius: var(--radius-pill); }
+.seg-item { display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 500; color: var(--text-muted); }
+.seg-item.on { background: var(--card); color: var(--text); box-shadow: var(--shadow-card); }
+
+.row { display: flex; align-items: flex-start; gap: 12px; padding: 8px 12px; border-radius: var(--radius-sm); }
+.row.on { background: var(--primary-soft); }
+.row > .ico { margin-top: 1px; }
+.row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.row-title { font-size: 13px; color: var(--text); line-height: 1.35; text-wrap: pretty; }
+.row-est { font-size: 12px; color: var(--text-light); }
+
+.qrow { display: flex; align-items: flex-start; gap: 16px; padding: 12px 16px; border-top: 1px solid var(--border); }
+.qrow:first-child { border-top: 0; }
+.qrow.on { background: var(--primary-soft); border-radius: var(--radius-sm); border-top-color: transparent; }
+.qrow.on + .qrow { border-top-color: transparent; }
+.qrow > .ico { margin-top: 1px; }
+.qrow-title { font-size: 14px; color: var(--text); line-height: 1.35; text-wrap: pretty; }
+.qrow-note { font-size: 12px; color: var(--text-light); margin-top: 2px; display: flex; align-items: center; gap: 5px; }
+.qrow-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.qrow-meta { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-muted); }
+.qrow-chain { width: 240px; flex-shrink: 0; align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 5px; padding-left: 16px; border-left: 1px solid var(--border); }
+.chain-line { display: flex; align-items: center; gap: 8px; min-height: 20px; }
+.chain-lbl { width: 68px; flex-shrink: 0; white-space: nowrap; }
+.chain-ref { font-family: var(--font-mono); letter-spacing: 0.02em; }
+.qblock { display: flex; align-items: flex-start; gap: 10px; margin: 0 16px 12px; padding: 12px 16px; border-radius: var(--radius-sm); background: var(--peach-soft); color: var(--peach-text); font-size: 13px; line-height: 1.45; }
+
+.sect { display: flex; align-items: center; gap: 8px; padding: 0 16px 8px; }
+.sect-count { font-size: 11px; font-weight: 600; color: var(--text-light); background: var(--surface-2); padding: 1px 7px; border-radius: var(--radius-pill); }
+.sect-tot { margin-left: auto; font-size: 12px; color: var(--text-muted); }
+
+.bcard { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-card); }
+.bcard.on { box-shadow: var(--ring-primary); border-color: transparent; }
+
+.bcol { display: flex; flex-direction: column; gap: 8px; padding: 8px; border-radius: var(--radius-md); min-height: 120px; }
+.bcol-queued { background: var(--yellow-soft); }
+.bcol-active { background: var(--primary-soft); }
+.bcol-done { background: var(--mint-soft); }
+.bcol-blocked { background: var(--peach-soft); }
+.bcol-head { display: flex; align-items: center; gap: 8px; padding: 0 4px; font-size: 13px; font-weight: 600; }
+
+.card { background: var(--card); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); }
+.ac { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.5; color: var(--text); }
+.prog { height: 6px; border-radius: 999px; background: var(--surface-2); overflow: hidden; display: flex; }
+.textarea { width: 100%; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 10px 14px; font-family: var(--font-body); font-size: 14px; line-height: 1.5; color: var(--text); background: var(--card); min-height: 88px; }
+.textarea.focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+.ai-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1);} 50% { opacity: .5; transform: scale(.8);} }
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- Bloom layer — FORM PAGES ONLY (design.md §4). ----
+   The landing page's own background, from src/components/landing-bloom.tsx
+   (bloom-1 and bloom-3 sampled at scroll progress 0), so sign-in, sign-up and
+   the North Star brief read as continuous with the page people arrive from.
+   Two washes on a diagonal; the parent needs `position: relative; overflow:
+   hidden` and the page's own content needs `position: relative; z-index: 1`.
+   Static: there is no scroll here to drift them, and .ai-dot owns the only
+   looping animation. Never behind a view that has a rail. */
+.bloom-layer { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.bloom { position: absolute; width: 520px; height: 440px; border-radius: 50%; filter: blur(100px); }
+.bloom-warm { top: -160px; left: -120px; background: var(--bloom-warm); }
+.bloom-cool { bottom: -160px; right: -120px; background: var(--bloom-cool); }

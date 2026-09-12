@@ -65,6 +65,24 @@ export function unmetDependencies<T extends SequencedTicket>(
     .filter((dep): dep is T => dep !== undefined && dep.status !== "done");
 }
 
+/**
+ * The other direction: tickets that name this one in their `depends_on`, i.e.
+ * the work finishing it would release. `unmetDependencies` answers "can I start
+ * this?"; this answers "what does finishing it unblock?" — the pair the Queue
+ * view renders as a ticket's dependency chain (design.md §7-C).
+ *
+ * Ordered by the same rule as the queue itself so the answer is stable across
+ * renders rather than riding on row order.
+ */
+export function dependents<T extends SequencedTicket>(
+  ticket: SequencedTicket,
+  tickets: T[],
+): T[] {
+  return tickets
+    .filter((candidate) => candidate.depends_on.includes(ticket.id))
+    .sort(byPriority);
+}
+
 /** Count of `depends_on` ids with no matching row — a broken graph, surfaced. */
 export function unresolvedDependencies(
   ticket: SequencedTicket,
