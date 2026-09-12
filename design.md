@@ -63,6 +63,16 @@ values into a component.
 | `--text` / `--text-muted` / `--text-light` | `#0d0d10` / `#6b6b80` / `#9898aa` | `96%` / `72%` / `56%` @ `.02 265` | Three levels only. There is no fourth. |
 | `--border` / `--border-strong` | `rgba(0,0,0,.08)` / `.14` | `rgba(255,255,255,.08)` / `.15` | Dividers / inputs, outline buttons, unfilled priority bars |
 | `--on-dark` | `#fff` | `oklch(15% .012 265)` | Glyph on a filled status circle |
+| `--bloom-warm` | `oklch(76% .18 345 / .34)` | `… / .22` | Bloom layer, form pages only — see below |
+| `--bloom-cool` | `oklch(80% .14 220 / .26)` | `… / .17` | Bloom layer, form pages only — see below |
+
+**The bloom washes are the one exception to "no new hues"** (§6.1) **and to
+"no gradients"** (§6.2). They are not palette: they are the landing page's own
+background, lifted verbatim from `src/components/landing-bloom.tsx` (its
+`bloom-1` and `bloom-3` stop lists sampled at scroll progress 0) so that the
+pages either side of the sign-in door look like one product. Do not invent a
+third wash, do not reuse these hues on anything else, and do not put them
+behind a view that has a rail.
 
 **Semantic status mapping — fixed, do not remap:**
 `queued → yellow` · `active → primary` · `done → mint` · `blocked → peach`.
@@ -126,6 +136,7 @@ Object Sans has one weight (400). Emphasis in display text is size, never weight
 | Inline error | 10px gap, 12×14, `--radius-sm`, `--peach-soft` bg, `--peach-text`, alert icon | Never a modal or toast for a failed action |
 | `.prog` | 6px track on `--surface-2`; segments mint (done) → primary (active) → peach (blocked) | Same order as rail sections |
 | Stall card | `.card`, 36×32 padding, 40px icon tile (`--radius-md`, `{tint}-soft` bg), 22px title, 14 muted body, one `.btn-primary` + one `.btn-ghost` | Four variants exist: empty / all-done / all-blocked / dependency-wait |
+| `.bloom-layer` | two 520×440 circles, `blur(100px)`, `--bloom-warm` off the top-left corner, `--bloom-cool` off the bottom-right; absolutely positioned, `pointer-events: none`, behind everything | **Form pages only** (§4). Static — there is no scroll here to drift them, and §2 Motion reserves the only loop for `.ai-dot` |
 | App header | 56px, 1px bottom border, 28px logo tile (`--primary`, radius 8, white 4-point star) + "Synergy" 17px Object Sans; right: product name 13 muted · version `.chip-neutral` · 28px avatar | Identical on every authenticated page |
 
 **Icons**: inline SVG, 16×16 grid, `stroke-width 1.75`, round caps/joins, `stroke="currentColor"`, colored via `style="color: var(--…)"`. The existing set: check, target, list, columns, chevron, arrow, link, refresh, pencil, clock, alert, star, spinner, x, inbox, flag, user. Draw new ones in the same style; **no emoji, no icon fonts, no dingbats**. The four-point star is the brand mark and is the only icon that ever fills rather than strokes.
@@ -153,6 +164,36 @@ Frame: **1440 × 900**. Views without a queue (North Star form, auth, system
 states) drop the rail and center their content at the same max-widths.
 Mobile is out of scope for now.
 
+### Form pages
+
+Sign-in, sign-up and the North Star brief share one shell. So does anything
+else that is a single centered card with no queue behind it.
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│ ◜ warm bloom                                                 │
+│  ▪ Synergy      ← 56px, wordmark only, NO bottom border      │
+│                                                              │
+│                  ┌──────────────────┐                        │
+│                  │  .card, 28px pad │  ← centered in the     │
+│                  │  title · fields  │    space below the     │
+│                  │  .btn-dark       │    header              │
+│                  └──────────────────┘                        │
+│                        note ·  cool bloom ◟                  │
+└──────────────────────────────────────────────────────────────┘
+```
+
+- **`.bloom-layer` behind everything**, on `--bg`. This is what makes a form
+  page read as continuous with the landing.
+- **Header keeps §3's 56px and 28px tile but drops the bottom border** and the
+  right-hand chrome: a rule across the top cuts the bloom in half, and there is
+  no product/version/avatar to show to someone who isn't signed in yet.
+- **Card centered in the space below the header**, not in the full frame.
+  Width is the form's own (400 for Clerk's card; 760 for the North Star brief).
+- Primary action is **`.btn-dark`** — `.btn-primary` stays reserved for
+  generating a queue.
+- At most one muted line under the card. Reuse landing copy where it exists.
+
 ---
 
 ## 5. Copy tone
@@ -169,8 +210,8 @@ it before writing new lines.
 
 ## 6. Hard rules
 
-1. **No new hues.** Every color is a token above. Need a color you don't have? You don't.
-2. **No gradients** except the landing's North Star header gradient (`--primary → oklch(62% .22 285)`), and only if §7 approves it.
+1. **No new hues.** Every color is a token above. Need a color you don't have? You don't. *(The `--bloom-*` washes are the exception, and only inside `.bloom-layer` on a form page — §2, §4.)*
+2. **No gradients** except the landing's North Star header gradient (`--primary → oklch(62% .22 285)`), and only if §7 approves it, and the `.bloom-layer` washes on form pages.
 3. **No emoji, no illustration, no stock imagery, no SVG-drawn scenes.** Missing icon → draw it in the set's style. Missing image → there is no image.
 4. **No rounded-card-with-left-border-accent, no purple→pink, no Inter/Roboto.**
 5. **No truncation.** Text wraps. If it can't, the layout is wrong.
@@ -182,16 +223,18 @@ it before writing new lines.
 
 ---
 
-## 7. Open decisions (don't guess — design around the current default)
+## 7. Decisions (resolved — do not reopen)
 
-| # | Question | Current default until decided |
+| # | Decision | Outcome |
 |---|---|---|
-| A | Adopt the landing's 60px nav with pill links (Focus / Queue / Board as nav links, dropping the segmented control)? | Keep the 56px header + segmented control |
-| B | 6px North Star gradient band along the top of the Focus card as the "came from your brief" thread? | No band |
-| C | With the rail always visible, does the Queue tab keep its full detail (sections, notes) or shrink? | Keeps full detail |
-| D | Ticket title 36px (from 28) and rail rows wrapping to two lines | **Approved — apply in every new view that shows these** |
-
----
+| A | Header grammar | **56px header + segmented control.** The landing's pill-link nav is not used in the app. |
+| B | North Star gradient band on the Focus card | **No band.** The Focus card stays plain. |
+| C | Queue tab depth, given the rail always shows the whole queue | **The Queue tab must show what the rail can't**: dependency lines, blocked reasons, priority, estimates per section — not a second copy of the row list. |
+| D | Ticket title 36px; rail rows wrap to two lines | **Approved.** Apply wherever these appear. |
+| E | Rail scope | **Whole queue** (Now / Up next / Blocked / Done). |
+| F | Mobile | **Deferred.** Desktop 1440 × 900 only. |
+| G | Fidelity of canvases | **Static mockups.** Canvases are design guidelines; the views are then built in code from them (see §9). |
+| H | Whether the landing's bloom washes carry into the app | **Yes, on form pages only** (§4) — two washes on a diagonal, behind sign-in, sign-up and the North Star brief. Not behind any view with a rail. |
 
 ## 8. How to deliver (for parallel agents)
 
@@ -201,3 +244,15 @@ it before writing new lines.
 4. Use the sample data in rule 6 and the copy in `src/` verbatim where it exists.
 5. Handover: the canvas link, one paragraph on what you assumed, and a list of any component you had to invent (anatomy + tokens used).
 6. Run the skill's 5-dimension critique on your own work before handing over; fix anything under 7.
+
+---
+
+## 9. From canvas to code
+
+The canvases are the spec, not the product. When implementing a view:
+
+- Port `design/system.css` tokens into `src/app/globals.css` as CSS custom properties on the app shell (light on `:root`/`.app`, dark under the existing `dark:` strategy), then reference them from Tailwind via arbitrary values or `@theme` — don't re-type oklch values in class names.
+- Object Sans is already loaded via `next/font/local` in `src/app/page.tsx`; lift it to the root layout so `/app` can use `var(--font-object-sans)`.
+- Reuse the existing components (`ticket-card.tsx`, `north-star-form.tsx`, `generate-tickets-button.tsx`) and server actions; restyle, don't rewrite the data flow.
+- Match the canvas pixel-for-pixel where it's specified; where it's silent, fall back to §2–§3.
+

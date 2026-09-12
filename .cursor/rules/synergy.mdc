@@ -1,0 +1,20 @@
+---
+description: Synergy project brief, invariants, and parallel-agent rules
+alwaysApply: true
+---
+
+Read @AGENTS.md before writing code in this repo, and follow it.
+
+It is the single shared brief for every agent regardless of editor: stack and commands,
+where things live, invariants that fail silently when broken (Clerk token -> Supabase
+RLS, per-request Supabase client, append-only migrations), known debt that is deferred
+on purpose, and the rules for working alongside other agents in this tree.
+
+Two that matter most when more than one agent is running:
+
+- Do not fix build, type, or lint errors in files you did not edit. Wait 30 seconds and
+  re-run — another agent is probably mid-edit.
+- Never `git add -A` or `git commit -a`. Stage explicit paths only.
+
+If AGENTS.md and anything else disagree, AGENTS.md wins. Keep it up to date: project
+knowledge goes there, never into an editor-specific rules file.

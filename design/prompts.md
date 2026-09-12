@@ -3,6 +3,9 @@
 One prompt per agent. Each is self-contained: paste it as the agent's first
 message. Every prompt assumes the agent is running in the Synergy repo root.
 
+**Order**: run prompt 5 (Ticket view v1) first and let it finish; then 1–4 in
+parallel, so the shared rail and Focus card they reference are already at v1.
+
 ---
 
 ## 1 · North Star brief (onboarding + edit)
@@ -105,8 +108,9 @@ Apply exactly these changes, on every artboard where the element appears:
 3. Delete the "Sequenced from North Star v3" footer badge from the Focus card, and the duplicate "Stripe approval" chip from the blocked board card (the glyph already says blocked).
 4. Normalize padding drift: anywhere a component uses 10 or 14 px inner padding that isn't from landing.css, move it to 12 or 16.
 5. Progress bar segments in rail order: done (mint) → active (primary) → blocked (peach) — verify, don't assume.
+6. Queue view (`Queue.dc.html`): per design.md §7-C, it must show what the rail can't. Redesign the main pane so it is not a second row list — surface the dependency chain per ticket (what it waits on, what waits on it), blocked reasons in full, priority and estimate per section, and section totals (hours remaining). Keep the `.qrow` recipe as the base; propose one layout and justify it in the handover.
 
-Do NOT: change the header, replace the segmented control, add a gradient band, or touch the Tokens sheet's values (design.md §7 lists those as open decisions). Update the Components sheet so it shows the new rail row and title size.
+Do NOT: change the header, replace the segmented control, add a gradient band, or touch the Tokens sheet's values (design.md §7 has settled these). Update the Components sheet so it shows the new rail row, the new title size, and any new Queue-view element.
 
 Handover: the same canvas link, a before/after line per change, and anything you saw that the critique missed.
 ```

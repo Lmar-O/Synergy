@@ -1,0 +1,45 @@
+<!-- app/error.tsx — the route error boundary. The layout above it rendered,
+     so the header (and its North Star) stays; the rail does not, because the
+     rail is the queue and the queue is what failed. One card at 560.
+     The raw failure is shown, but demoted: the human sentence leads, and the
+     digest — the only string Next gives you in production, and the one the
+     server log indexes on — sits under it in a detail well. -->
+<div class="app {{theme}}" style="width: 1440px; height: 900px; overflow: hidden; display: flex; flex-direction: column; background: var(--bg);">
+
+<div style="display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 20px; border-bottom: 1px solid var(--border); background: var(--bg); flex-shrink: 0;">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <div style="width: 28px; height: 28px; border-radius: 8px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff;"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1c.6 4 3 6.4 7 7-4 .6-6.4 3-7 7-.6-4-3-6.4-7-7 4-.6 6.4-3 7-7z" fill="currentColor" stroke="none"></path></svg></div>
+    <span class="display" style="font-size: 17px;">Synergy</span>
+  </div>
+  <div style="display: flex; align-items: center; gap: 14px;">
+    <span style="font-size: 13px; color: var(--text-muted);">Ledgerly</span>
+    <span class="chip chip-neutral">North Star v3</span>
+    <div style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--mint) 0%, var(--primary) 100%);"></div>
+  </div>
+</div>
+
+<div style="flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 32px 72px;">
+  <div class="card" style="width: 100%; max-width: 560px; display: flex; flex-direction: column; gap: 18px; padding: 36px 32px 32px; align-items: flex-start;">
+
+    <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--peach-soft); color: var(--peach-text); display: flex; align-items: center; justify-content: center;">
+      <svg class="ico ico-20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5l6 11H2z"></path><path d="M8 7v3M8 12h.01"></path></svg>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <h1 class="display" style="font-size: 22px; line-height: 1.25; margin: 0;">This page didn’t load</h1>
+      <p style="font-size: 14px; line-height: 1.6; color: var(--text-muted); margin: 0; text-wrap: pretty;">Something broke while rendering it. Nothing was written — your tickets, your progress and your North Star are exactly where you left them. Try again; if it keeps happening, the digest below is what the server log calls this failure.</p>
+    </div>
+
+    <div class="detail" style="width: 100%;">
+      <span class="caption">Error digest</span>
+      <span class="detail-val">2846170933</span>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">
+      <button class="btn btn-dark"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8a5 5 0 0 1-8.8 3.2M3 8a5 5 0 0 1 8.8-3.2"></path><path d="M12 2v3h-3M4 14v-3h3"></path></svg>Try again</button>
+      <button class="btn btn-ghost"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4L3 8l4 4"></path></svg>Back to queue</button>
+    </div>
+
+  </div>
+</div>
+</div>

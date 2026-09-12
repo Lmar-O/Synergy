@@ -1,0 +1,213 @@
+<!-- app/loading.tsx — the split layout while /app is suspended.
+     Chrome that does not depend on the ticket read is rendered for real:
+     the header (its North Star comes from the layout, which has already
+     resolved), the segmented control, "Edit brief". Only the two
+     data-shaped regions — the rail's queue and the Focus card — become
+     skeleton. Nothing loops; see .skel in build.mjs. -->
+<div class="app {{theme}}" style="width: 1440px; height: 900px; overflow: hidden; display: flex; flex-direction: column; background: var(--bg);">
+
+<div style="display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 20px; border-bottom: 1px solid var(--border); background: var(--bg); flex-shrink: 0;">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <div style="width: 28px; height: 28px; border-radius: 8px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff;"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1c.6 4 3 6.4 7 7-4 .6-6.4 3-7 7-.6-4-3-6.4-7-7 4-.6 6.4-3 7-7z" fill="currentColor" stroke="none"></path></svg></div>
+    <span class="display" style="font-size: 17px;">Synergy</span>
+  </div>
+  <div style="display: flex; align-items: center; gap: 14px;">
+    <span style="font-size: 13px; color: var(--text-muted);">Ledgerly</span>
+    <span class="chip chip-neutral">North Star v3</span>
+    <div style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--mint) 0%, var(--primary) 100%);"></div>
+  </div>
+</div>
+
+<div style="display: flex; flex: 1; min-height: 0;">
+
+  <aside style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--rail); border-right: 1px solid var(--border); overflow: hidden;">
+    <div style="padding: 20px 20px 16px; display: flex; flex-direction: column; gap: 12px; border-bottom: 1px solid var(--border);">
+      <div style="display: flex; align-items: center; justify-content: space-between;">
+        <div class="skel skel-line" style="height: 11px; width: 52px;"></div>
+        <div class="skel skel-line" style="height: 9px; width: 116px;"></div>
+      </div>
+      <div class="prog"></div>
+    </div>
+
+    <div style="flex: 1; overflow: hidden; padding: 12px 10px; display: flex; flex-direction: column; gap: 14px;">
+
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div class="skel skel-line" style="height: 8px; width: 30px; margin: 0 10px 6px;"></div>
+        <div class="row" style="align-items: flex-start;">
+          <div class="skel skel-dot" style="width: 16px; height: 16px; margin-top: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div class="skel skel-line" style="height: 9px; width: 46px;"></div>
+              <div class="skel skel-line" style="height: 9px; flex: 1;"></div>
+            </div>
+            <div class="skel skel-line" style="height: 9px; width: 44%;"></div>
+            <div class="skel skel-line" style="height: 8px; width: 24px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div class="skel skel-line" style="height: 8px; width: 48px; margin: 0 10px 6px;"></div>
+        <div class="row" style="align-items: flex-start;">
+          <div class="skel skel-dot" style="width: 16px; height: 16px; margin-top: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div class="skel skel-line" style="height: 9px; width: 46px;"></div>
+              <div class="skel skel-line" style="height: 9px; flex: 1;"></div>
+            </div>
+            <div class="skel skel-line" style="height: 9px; width: 32%;"></div>
+            <div class="skel skel-line" style="height: 8px; width: 24px;"></div>
+          </div>
+        </div>
+        <div class="row" style="align-items: flex-start;">
+          <div class="skel skel-dot" style="width: 16px; height: 16px; margin-top: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div class="skel skel-line" style="height: 9px; width: 46px;"></div>
+              <div class="skel skel-line" style="height: 9px; flex: 1;"></div>
+            </div>
+            <div class="skel skel-line" style="height: 8px; width: 28px;"></div>
+          </div>
+        </div>
+        <div class="row" style="align-items: flex-start;">
+          <div class="skel skel-dot" style="width: 16px; height: 16px; margin-top: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div class="skel skel-line" style="height: 9px; width: 46px;"></div>
+              <div class="skel skel-line" style="height: 9px; flex: 1;"></div>
+            </div>
+            <div class="skel skel-line" style="height: 9px; width: 58%;"></div>
+            <div class="skel skel-line" style="height: 8px; width: 24px;"></div>
+          </div>
+        </div>
+        <div class="row" style="align-items: flex-start;">
+          <div class="skel skel-dot" style="width: 16px; height: 16px; margin-top: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div class="skel skel-line" style="height: 9px; width: 46px;"></div>
+              <div class="skel skel-line" style="height: 9px; flex: 1;"></div>
+            </div>
+            <div class="skel skel-line" style="height: 8px; width: 24px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div class="skel skel-line" style="height: 8px; width: 42px; margin: 0 10px 6px;"></div>
+        <div class="row" style="align-items: flex-start;">
+          <div class="skel skel-dot" style="width: 16px; height: 16px; margin-top: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div class="skel skel-line" style="height: 9px; width: 46px;"></div>
+              <div class="skel skel-line" style="height: 9px; flex: 1;"></div>
+            </div>
+            <div class="skel skel-line" style="height: 8px; width: 24px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <div class="skel skel-line" style="height: 8px; width: 34px; margin: 0 10px 6px;"></div>
+        <div class="row" style="align-items: flex-start;">
+          <div class="skel skel-dot" style="width: 16px; height: 16px; margin-top: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div class="skel skel-line" style="height: 9px; width: 46px;"></div>
+              <div class="skel skel-line" style="height: 9px; flex: 1;"></div>
+            </div>
+            <div class="skel skel-line" style="height: 9px; width: 36%;"></div>
+            <div class="skel skel-line" style="height: 8px; width: 24px;"></div>
+          </div>
+        </div>
+        <div class="row" style="align-items: flex-start;">
+          <div class="skel skel-dot" style="width: 16px; height: 16px; margin-top: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div class="skel skel-line" style="height: 9px; width: 46px;"></div>
+              <div class="skel skel-line" style="height: 9px; flex: 1;"></div>
+            </div>
+            <div class="skel skel-line" style="height: 8px; width: 28px;"></div>
+          </div>
+        </div>
+        <div class="row" style="align-items: flex-start;">
+          <div class="skel skel-dot" style="width: 16px; height: 16px; margin-top: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div class="skel skel-line" style="height: 9px; width: 46px;"></div>
+              <div class="skel skel-line" style="height: 9px; flex: 1;"></div>
+            </div>
+            <div class="skel skel-line" style="height: 8px; width: 24px;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="padding: 14px 16px; border-top: 1px solid var(--border); flex-shrink: 0;">
+      <button class="btn btn-outline btn-sm is-disabled" style="width: 100%; justify-content: center;"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8a5 5 0 0 1-8.8 3.2M3 8a5 5 0 0 1 8.8-3.2"></path><path d="M12 2v3h-3M4 14v-3h3"></path></svg>Regenerate queue</button>
+    </div>
+  </aside>
+
+  <main style="flex: 1; min-width: 0; display: flex; flex-direction: column; background: var(--bg);">
+
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; flex-shrink: 0;">
+      <div class="seg">
+        <div class="seg-item on"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"></circle><circle cx="8" cy="8" r="2.25" fill="currentColor" stroke="none"></circle></svg>Focus</div>
+        <div class="seg-item"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.5h10M3 8h10M3 11.5h7"></path></svg>Queue</div>
+        <div class="seg-item"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="3.2" height="10" rx="1"></rect><rect x="6.4" y="3" width="3.2" height="7" rx="1"></rect><rect x="10.8" y="3" width="3.2" height="10" rx="1"></rect></svg>Board</div>
+      </div>
+      <button class="btn btn-ghost btn-sm"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 2.5l3 3-7.5 7.5H3v-3z"></path></svg>Edit brief</button>
+    </div>
+
+    <div style="flex: 1; min-height: 0; overflow: hidden; padding: 32px 32px 40px; display: flex; flex-direction: column; align-items: center;">
+      <div class="card" style="width: 100%; max-width: 760px; display: flex; flex-direction: column;">
+
+        <div style="display: flex; flex-direction: column; gap: 20px; padding: 28px 28px 0;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="skel skel-line" style="height: 10px; width: 58px;"></div>
+            <div class="skel skel-pill" style="height: 18px; width: 56px;"></div>
+            <div class="skel skel-line" style="height: 10px; width: 44px;"></div>
+            <div class="skel skel-line" style="height: 10px; width: 26px;"></div>
+            <div class="skel skel-line" style="height: 10px; width: 132px; margin-left: auto;"></div>
+          </div>
+          <div class="skel skel-block" style="height: 26px; width: 62%;"></div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="skel skel-line" style="height: 10px; width: 100%;"></div>
+            <div class="skel skel-line" style="height: 10px; width: 96%;"></div>
+            <div class="skel skel-line" style="height: 10px; width: 57%;"></div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 16px; padding: 24px 28px;">
+          <div class="skel skel-line" style="height: 8px; width: 118px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div class="skel skel-dot" style="width: 16px; height: 16px;"></div>
+              <div class="skel skel-line" style="height: 10px; width: 84%;"></div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div class="skel skel-dot" style="width: 16px; height: 16px;"></div>
+              <div class="skel skel-line" style="height: 10px; width: 71%;"></div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div class="skel skel-dot" style="width: 16px; height: 16px;"></div>
+              <div class="skel skel-line" style="height: 10px; width: 89%;"></div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div class="skel skel-dot" style="width: 16px; height: 16px;"></div>
+              <div class="skel skel-line" style="height: 10px; width: 52%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 12px; padding: 20px 28px 24px; border-top: 1px solid var(--border);">
+          <div class="skel skel-pill" style="height: 38px; width: 132px;"></div>
+          <div class="skel skel-pill" style="height: 38px; width: 104px;"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+</div>

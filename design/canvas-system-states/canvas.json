@@ -1,0 +1,26 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "title": "app/loading.tsx", "x": 0, "y": 0, "w": 1440, "h": 900 },
+    { "file": "LoadingForm.dc.html", "title": "onboarding/loading.tsx", "x": 1540, "y": 0, "w": 1440, "h": 900 },
+    { "file": "DataError.dc.html", "title": "/app — tickets failed to load", "x": 0, "y": 1080, "w": 1440, "h": 900 },
+    { "file": "Error.dc.html", "title": "app/error.tsx", "x": 1540, "y": 1080, "w": 1440, "h": 900 },
+    { "file": "NotFound.dc.html", "title": "not-found.tsx", "x": 3080, "y": 1080, "w": 1440, "h": 900 }
+  ],
+  "annotations": [
+    {
+      "id": "loading-note",
+      "x": 0,
+      "y": -190,
+      "w": 560,
+      "text": "Loading.\nAnything that is not data renders for real — the header, the segmented control, the form's heading. Only the data-shaped regions become skeleton, at the exact heights of what replaces them, so nothing shifts on arrival.\nNo shimmer: design.md §2 reserves looping motion for .ai-dot, and a database read is not the AI working."
+    },
+    {
+      "id": "error-note",
+      "x": 0,
+      "y": 890,
+      "w": 560,
+      "text": "Failure.\nEach board says what happened and what survives, then offers the machine-readable half in a detail well underneath — never in the headline. Peach is for things that broke; a wrong address gets a neutral tile."
+    }
+  ],
+  "launch": { "view": "canvas" }
+}
