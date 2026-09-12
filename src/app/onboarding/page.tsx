@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import { FormShell } from "@/components/form-shell";
 import { NorthStarForm } from "@/components/north-star-form";
 import { saveNorthStar } from "@/lib/actions/north-star";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
@@ -18,16 +19,27 @@ export default async function OnboardingPage() {
   if (existing) redirect("/app");
 
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-8 px-6 py-12">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold tracking-tight">
+    <FormShell>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <h1
+          className="display"
+          style={{ fontSize: 32, lineHeight: 1.15, margin: 0 }}
+        >
           What are you building?
         </h1>
-        <p className="text-sm text-black/60 dark:text-white/60">
+        <p
+          style={{
+            fontSize: 15,
+            lineHeight: 1.6,
+            color: "var(--text-muted)",
+            margin: 0,
+            textWrap: "pretty",
+          }}
+        >
           This brief is what Synergy generates your first ticket queue from.
         </p>
       </div>
       <NorthStarForm action={saveNorthStar} submitLabel="Save & continue" />
-    </main>
+    </FormShell>
   );
 }

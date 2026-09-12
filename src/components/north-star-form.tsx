@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 
+import { AlertIcon, SpinnerIcon } from "@/components/app-icons";
 import type { NorthStarFormState } from "@/lib/actions/north-star";
 import { northStarFields, type NorthStarFormValues } from "@/lib/north-star";
 
@@ -12,16 +13,22 @@ function SubmitButton({ label }: { label: string }) {
   const { pending } = useFormStatus();
 
   return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="self-start rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background disabled:opacity-50"
-    >
+    <button type="submit" disabled={pending} className="btn btn-dark">
+      {pending && <SpinnerIcon className="ico spin" />}
       {pending ? "Saving…" : label}
     </button>
   );
 }
 
+/**
+ * The North Star brief. Restyled onto the design system (design.md §3) — the
+ * `.textarea` recipe, `.btn-dark` for the primary action, the inline-error
+ * recipe for validation. The data flow is unchanged.
+ *
+ * Control heights are load-bearing beyond looks: `form-skeleton.tsx` stands in
+ * for this form at 44px for the single-line field and 88px for the textareas,
+ * so the page does not jump when the real one arrives.
+ */
 export function NorthStarForm({
   action,
   defaultValues,
@@ -37,48 +44,87 @@ export function NorthStarForm({
   const [state, formAction] = useActionState(action, initialState);
 
   return (
-    <form action={formAction} className="flex flex-col gap-6">
+    <form
+      action={formAction}
+      className="card"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 24,
+        padding: 28,
+      }}
+    >
       {northStarFields.map((field) => {
         const error = state.errors?.[field.name];
-        const sharedProps = {
+        const shared = {
           id: field.name,
           name: field.name,
           required: field.required,
           defaultValue: defaultValues?.[field.name],
           placeholder: field.placeholder,
           "aria-invalid": Boolean(error),
-          className:
-            "rounded-md border border-black/10 bg-transparent px-3 py-2 text-sm outline-none focus:border-black/30 dark:border-white/15 dark:focus:border-white/30",
+          "aria-describedby": `${field.name}-hint`,
+          className: field.multiline ? "textarea" : "textarea line",
         };
 
         return (
-          <div key={field.name} className="flex flex-col gap-1">
-            <label htmlFor={field.name} className="text-sm font-medium">
+          <div
+            key={field.name}
+            style={{ display: "flex", flexDirection: "column", gap: 6 }}
+          >
+            <label
+              htmlFor={field.name}
+              style={{ fontSize: 14, fontWeight: 500, color: "var(--text)" }}
+            >
               {field.label}
               {!field.required && (
-                <span className="ml-1 font-normal text-black/50 dark:text-white/50">
+                <span
+                  style={{
+                    marginLeft: 6,
+                    fontWeight: 400,
+                    color: "var(--text-light)",
+                  }}
+                >
                   (optional)
                 </span>
               )}
             </label>
-            <p className="text-xs text-black/60 dark:text-white/60">
+            <p
+              id={`${field.name}-hint`}
+              style={{
+                margin: 0,
+                fontSize: 12,
+                color: "var(--text-muted)",
+                textWrap: "pretty",
+              }}
+            >
               {field.hint}
             </p>
             {field.multiline ? (
-              <textarea {...sharedProps} rows={3} />
+              <textarea {...shared} rows={3} style={{ marginTop: 4 }} />
             ) : (
-              <input {...sharedProps} type="text" />
+              <input {...shared} type="text" style={{ marginTop: 4 }} />
             )}
-            {error && <p className="text-xs text-red-600">{error}</p>}
+            {error && (
+              <p className="inline-err" style={{ margin: "2px 0 0" }}>
+                <AlertIcon />
+                <span>{error}</span>
+              </p>
+            )}
           </div>
         );
       })}
+
       {state.message && (
-        <p role="alert" className="text-sm text-red-600">
-          {state.message}
+        <p role="alert" className="inline-err" style={{ margin: 0 }}>
+          <AlertIcon />
+          <span>{state.message}</span>
         </p>
       )}
-      <SubmitButton label={submitLabel} />
+
+      <div>
+        <SubmitButton label={submitLabel} />
+      </div>
     </form>
   );
 }
