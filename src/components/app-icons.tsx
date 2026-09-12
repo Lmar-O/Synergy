@@ -108,6 +108,14 @@ export function AlertIcon(props: IconProps) {
   );
 }
 
+export function ChevronIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M6 3.5l4.5 4.5L6 12.5" />
+    </Svg>
+  );
+}
+
 export function ArrowRightIcon(props: IconProps) {
   return (
     <Svg {...props}>

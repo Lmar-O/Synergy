@@ -404,6 +404,108 @@
   border-color: transparent;
 }
 
+/* ---- Queue rows (design.md §7-C) ---- */
+
+/* This view earns its place by showing what the rail has no room for: each
+   ticket's dependency chain in both directions, the full blocked reason, and
+   per-section totals. The chain refs are tinted by the referenced ticket's own
+   status, reusing the same fixed status mapping as the chips. */
+
+.app .sect {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px 8px;
+}
+.app .sect-tot {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.app .qrow {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+}
+.app .qrow:first-child {
+  border-top: 0;
+}
+.app .qrow.on {
+  background: var(--primary-soft);
+  border-radius: var(--radius-sm);
+  border-top-color: transparent;
+}
+.app .qrow.on + .qrow {
+  border-top-color: transparent;
+}
+.app .qrow > .ico {
+  margin-top: 1px;
+}
+.app .qrow-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.app .qrow-title {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+.app .qrow-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.app .qrow-chain {
+  width: 240px;
+  flex-shrink: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding-left: 16px;
+  border-left: 1px solid var(--border);
+}
+.app .chain-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 20px;
+}
+.app .chain-lbl {
+  width: 68px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.app .chain-ref {
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+/* The blocked reason in full — the rail can only ever hint at it. */
+.app .qblock {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 16px 12px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--peach-soft);
+  color: var(--peach-text);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 /* ---- Inputs ---- */
 
 .app .textarea {
