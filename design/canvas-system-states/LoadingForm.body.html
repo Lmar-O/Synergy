@@ -1,0 +1,67 @@
+<!-- onboarding/loading.tsx (and app/north-star/loading.tsx) — the North Star
+     brief while the server component is still deciding what to render.
+     No rail: there is no queue on this route. The heading is real static
+     copy from src/app/onboarding/page.tsx; the field groups are skeleton at
+     the exact heights of the real controls (44px input, 88px textarea) so
+     nothing shifts when they arrive. The card runs past the bottom edge the
+     way it does in a 900px viewport — the page scrolls. -->
+<div class="app {{theme}}" style="width: 1440px; height: 900px; overflow: hidden; display: flex; flex-direction: column; background: var(--bg);">
+
+<div style="display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 20px; border-bottom: 1px solid var(--border); background: var(--bg); flex-shrink: 0;">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <div style="width: 28px; height: 28px; border-radius: 8px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff;"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1c.6 4 3 6.4 7 7-4 .6-6.4 3-7 7-.6-4-3-6.4-7-7 4-.6 6.4-3 7-7z" fill="currentColor" stroke="none"></path></svg></div>
+    <span class="display" style="font-size: 17px;">Synergy</span>
+  </div>
+  <div style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--mint) 0%, var(--primary) 100%);"></div>
+</div>
+
+<div style="flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 40px 32px 0;">
+  <div style="width: 100%; max-width: 760px; display: flex; flex-direction: column; gap: 32px;">
+
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <h1 class="display" style="font-size: 32px; line-height: 1.15; margin: 0;">What are you building?</h1>
+      <p style="font-size: 15px; line-height: 1.6; color: var(--text-muted); margin: 0; text-wrap: pretty;">This brief is what Synergy generates your first ticket queue from.</p>
+    </div>
+
+    <div class="card" style="display: flex; flex-direction: column; gap: 24px; padding: 28px;">
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div class="skel skel-line" style="height: 10px; width: 104px;"></div>
+        <div class="skel skel-line" style="height: 9px; width: 168px;"></div>
+        <div class="skel skel-block" style="height: 44px; width: 100%; margin-top: 2px;"></div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div class="skel skel-line" style="height: 10px; width: 92px;"></div>
+        <div class="skel skel-line" style="height: 9px; width: 252px;"></div>
+        <div class="skel skel-block" style="height: 88px; width: 100%; margin-top: 2px;"></div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div class="skel skel-line" style="height: 10px; width: 78px;"></div>
+        <div class="skel skel-line" style="height: 9px; width: 320px;"></div>
+        <div class="skel skel-block" style="height: 88px; width: 100%; margin-top: 2px;"></div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div class="skel skel-line" style="height: 10px; width: 124px;"></div>
+        <div class="skel skel-line" style="height: 9px; width: 288px;"></div>
+        <div class="skel skel-block" style="height: 88px; width: 100%; margin-top: 2px;"></div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div class="skel skel-line" style="height: 10px; width: 110px;"></div>
+        <div class="skel skel-line" style="height: 9px; width: 236px;"></div>
+        <div class="skel skel-block" style="height: 88px; width: 100%; margin-top: 2px;"></div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div class="skel skel-line" style="height: 10px; width: 86px;"></div>
+        <div class="skel skel-line" style="height: 9px; width: 204px;"></div>
+        <div class="skel skel-block" style="height: 88px; width: 100%; margin-top: 2px;"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>

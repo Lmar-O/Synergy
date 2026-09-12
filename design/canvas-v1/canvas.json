@@ -1,0 +1,99 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "title": "Focus view",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1000,
+      "page": "page-1"
+    },
+    {
+      "file": "Queue.dc.html",
+      "title": "Queue view",
+      "x": 1540,
+      "y": 0,
+      "w": 1440,
+      "h": 1240,
+      "page": "page-1"
+    },
+    {
+      "file": "Board.dc.html",
+      "title": "Board view",
+      "x": 3080,
+      "y": 0,
+      "w": 1440,
+      "h": 1000,
+      "page": "page-1"
+    },
+    {
+      "file": "CardStates.dc.html",
+      "title": "Focus card states",
+      "x": 0,
+      "y": 1480,
+      "w": 860,
+      "h": 1960,
+      "page": "page-1"
+    },
+    {
+      "file": "StallStates.dc.html",
+      "title": "Stall states",
+      "x": 960,
+      "y": 1480,
+      "w": 1240,
+      "h": 760,
+      "page": "page-1"
+    },
+    {
+      "file": "Tokens.dc.html",
+      "title": "Tokens",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 2400,
+      "page": "page-2"
+    },
+    {
+      "file": "Components.dc.html",
+      "title": "Components",
+      "x": 1540,
+      "y": 0,
+      "w": 1440,
+      "h": 3140,
+      "page": "page-2"
+    }
+  ],
+  "annotations": [
+    {
+      "id": "layout-note",
+      "x": 0,
+      "y": -170,
+      "w": 520,
+      "page": "page-1",
+      "text": "Split layout: the rail is always the sequenced queue; the main pane switches Focus / Queue / Board. Every artboard has a Theme tweak (light / dark) in its chip row."
+    },
+    {
+      "id": "states-note",
+      "x": 960,
+      "y": 2320,
+      "w": 420,
+      "page": "page-1",
+      "text": "Stall states replace the focus card when buildQueueView() returns no current ticket. Buttons map to the existing GenerateTicketsButton + Edit brief link."
+    }
+  ],
+  "launch": {
+    "view": "canvas",
+    "page": "page-1"
+  },
+  "pages": [
+    {
+      "id": "page-1",
+      "name": "Ticket view"
+    },
+    {
+      "id": "page-2",
+      "name": "Design system"
+    }
+  ]
+}

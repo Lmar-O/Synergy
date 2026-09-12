@@ -1,0 +1,289 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+
+@font-face { font-family: 'Object Sans'; src: url(data:font/woff2;base64,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) format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+.app {
+  --primary: oklch(60% 0.22 265);
+  --primary-hover: oklch(48% 0.22 265);
+  --primary-soft: oklch(92% 0.08 265);
+  --primary-text: oklch(48% 0.22 265);
+  --mint: oklch(72% 0.20 155);
+  --mint-soft: oklch(93% 0.07 155);
+  --mint-text: oklch(48% 0.18 155);
+  --lime: oklch(84% 0.22 130);
+  --lime-soft: oklch(94% 0.09 130);
+  --lime-text: oklch(50% 0.20 130);
+  --peach: oklch(82% 0.16 42);
+  --peach-soft: oklch(95% 0.06 42);
+  --peach-text: oklch(52% 0.16 42);
+  --yellow: oklch(86% 0.16 95);
+  --yellow-soft: oklch(94% 0.12 95);
+  --yellow-text: oklch(52% 0.16 90);
+
+  --bg: #ffffff;
+  --rail: oklch(98% 0.01 265);
+  --card: #ffffff;
+  --surface: oklch(98% 0.01 265);
+  --surface-2: oklch(96% 0.015 265);
+  --text: #0d0d10;
+  --text-muted: #6b6b80;
+  --text-light: #9898aa;
+  --border: rgba(0,0,0,0.08);
+  --border-strong: rgba(0,0,0,0.14);
+  --on-dark: #ffffff;
+
+  --radius-sm: 8px; --radius-md: 14px; --radius-lg: 20px; --radius-xl: 28px; --radius-pill: 999px;
+  --font-display: 'Object Sans', system-ui, -apple-system, sans-serif;
+  --font-body: system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --shadow-card: 0 2px 10px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.05);
+  --shadow-float: 0 16px 48px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06);
+  --shadow-btn: 0 1px 3px rgba(0,0,0,0.2);
+  --ring-primary: 0 0 0 2px var(--primary-soft), 0 0 0 3px var(--primary);
+
+  font-family: var(--font-body); color: var(--text); background: var(--bg);
+  -webkit-font-smoothing: antialiased; line-height: 1.5; font-size: 14px;
+}
+.app.dark {
+  --primary: oklch(70% 0.19 265);
+  --primary-hover: oklch(78% 0.16 265);
+  --primary-soft: oklch(28% 0.08 265);
+  --primary-text: oklch(84% 0.11 265);
+  --mint: oklch(74% 0.18 155);
+  --mint-soft: oklch(26% 0.06 155);
+  --mint-text: oklch(82% 0.14 155);
+  --lime-soft: oklch(27% 0.07 130);
+  --lime-text: oklch(84% 0.16 130);
+  --peach: oklch(78% 0.15 42);
+  --peach-soft: oklch(27% 0.05 42);
+  --peach-text: oklch(84% 0.11 42);
+  --yellow-soft: oklch(27% 0.06 95);
+  --yellow-text: oklch(85% 0.12 95);
+
+  --bg: oklch(15% 0.012 265);
+  --rail: oklch(17% 0.012 265);
+  --card: oklch(19.5% 0.012 265);
+  --surface: oklch(19.5% 0.012 265);
+  --surface-2: oklch(23% 0.014 265);
+  --text: oklch(96% 0.006 265);
+  --text-muted: oklch(72% 0.02 265);
+  --text-light: oklch(56% 0.02 265);
+  --border: rgba(255,255,255,0.08);
+  --border-strong: rgba(255,255,255,0.15);
+  --on-dark: oklch(15% 0.012 265);
+  --shadow-card: 0 2px 10px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06);
+  --shadow-float: 0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
+  --shadow-btn: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+
+body { margin: 0; }
+.app * { box-sizing: border-box; }
+a { color: var(--primary-text); text-decoration: none; } a:hover { color: var(--primary); }
+.display { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.01em; }
+.mono { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.02em; }
+.caption { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); }
+.muted { color: var(--text-muted); }
+/* :not(.app) is load-bearing: the artboard root is `class="app {{theme}}"`, so in
+   light mode the theme value lands on the same element as this utility and would
+   otherwise repaint every default-coloured string on the page as --text-light. */
+.light:not(.app) { color: var(--text-light); }
+.ico { width: 16px; height: 16px; flex-shrink: 0; display: block; }
+.ico-20 { width: 20px; height: 20px; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font-body); font-size: 14px; font-weight: 600; padding: 9px 20px; border-radius: var(--radius-pill); border: 1px solid transparent; cursor: pointer; line-height: 1.3; white-space: nowrap; }
+.btn-dark { background: var(--text); color: var(--bg); box-shadow: var(--shadow-btn); }
+.btn-primary { background: var(--primary); color: #fff; box-shadow: 0 2px 12px oklch(60% 0.22 265 / 0.175); }
+.btn-outline { background: transparent; color: var(--text-muted); border-color: var(--border-strong); }
+.btn-ghost { background: transparent; color: var(--text-muted); }
+.btn-sm { font-size: 13px; padding: 7px 14px; }
+.btn-xs { font-size: 12px; padding: 5px 12px; gap: 6px; }
+.is-disabled { opacity: 0.5; cursor: default; }
+
+.chip { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: var(--radius-pill); font-size: 11px; font-weight: 600; line-height: 16px; white-space: nowrap; }
+.chip-queued { background: var(--yellow-soft); color: var(--yellow-text); }
+.chip-active { background: var(--primary-soft); color: var(--primary-text); }
+.chip-done { background: var(--mint-soft); color: var(--mint-text); }
+.chip-blocked { background: var(--peach-soft); color: var(--peach-text); }
+.chip-neutral { background: var(--surface-2); color: var(--text-muted); }
+.chip-outline { background: transparent; color: var(--text-muted); border: 1px solid var(--border-strong); }
+
+.seg { display: inline-flex; gap: 2px; padding: 3px; background: var(--surface-2); border-radius: var(--radius-pill); }
+.seg-item { display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 500; color: var(--text-muted); }
+.seg-item.on { background: var(--card); color: var(--text); box-shadow: var(--shadow-card); }
+
+.row { display: flex; align-items: flex-start; gap: 12px; padding: 8px 12px; border-radius: var(--radius-sm); }
+.row.on { background: var(--primary-soft); }
+.row > .ico { margin-top: 1px; }
+.row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.row-title { font-size: 13px; color: var(--text); line-height: 1.35; text-wrap: pretty; }
+.row-est { font-size: 12px; color: var(--text-light); }
+
+.qrow { display: flex; align-items: flex-start; gap: 16px; padding: 12px 16px; border-top: 1px solid var(--border); }
+.qrow:first-child { border-top: 0; }
+.qrow.on { background: var(--primary-soft); border-radius: var(--radius-sm); border-top-color: transparent; }
+.qrow.on + .qrow { border-top-color: transparent; }
+.qrow > .ico { margin-top: 1px; }
+.qrow-title { font-size: 14px; color: var(--text); line-height: 1.35; text-wrap: pretty; }
+.qrow-note { font-size: 12px; color: var(--text-light); margin-top: 2px; display: flex; align-items: center; gap: 5px; }
+.qrow-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.qrow-meta { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-muted); }
+.qrow-chain { width: 240px; flex-shrink: 0; align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 5px; padding-left: 16px; border-left: 1px solid var(--border); }
+.chain-line { display: flex; align-items: center; gap: 8px; min-height: 20px; }
+.chain-lbl { width: 68px; flex-shrink: 0; white-space: nowrap; }
+.chain-ref { font-family: var(--font-mono); letter-spacing: 0.02em; }
+.qblock { display: flex; align-items: flex-start; gap: 10px; margin: 0 16px 12px; padding: 12px 16px; border-radius: var(--radius-sm); background: var(--peach-soft); color: var(--peach-text); font-size: 13px; line-height: 1.45; }
+
+.sect { display: flex; align-items: center; gap: 8px; padding: 0 16px 8px; }
+.sect-count { font-size: 11px; font-weight: 600; color: var(--text-light); background: var(--surface-2); padding: 1px 7px; border-radius: var(--radius-pill); }
+.sect-tot { margin-left: auto; font-size: 12px; color: var(--text-muted); }
+
+.bcard { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-card); }
+.bcard.on { box-shadow: var(--ring-primary); border-color: transparent; }
+
+.bcol { display: flex; flex-direction: column; gap: 8px; padding: 8px; border-radius: var(--radius-md); min-height: 120px; }
+.bcol-queued { background: var(--yellow-soft); }
+.bcol-active { background: var(--primary-soft); }
+.bcol-done { background: var(--mint-soft); }
+.bcol-blocked { background: var(--peach-soft); }
+.bcol-head { display: flex; align-items: center; gap: 8px; padding: 0 4px; font-size: 13px; font-weight: 600; }
+
+.card { background: var(--card); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); }
+.ac { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.5; color: var(--text); }
+.prog { height: 6px; border-radius: 999px; background: var(--surface-2); overflow: hidden; display: flex; }
+.textarea { width: 100%; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 10px 14px; font-family: var(--font-body); font-size: 14px; line-height: 1.5; color: var(--text); background: var(--card); min-height: 88px; }
+.textarea.focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+.ai-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1);} 50% { opacity: .5; transform: scale(.8);} }
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+
+  </style>
+</helmet>
+<div class="app {{theme}}" style="width: 860px; min-height: 1960px; display: flex; flex-direction: column; background: var(--bg);">
+
+<div style="padding: 40px; display: flex; flex-direction: column; gap: 40px; background: var(--surface); flex: 1;">
+  
+<div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; align-items: baseline; gap: 10px;"><span class="mono" style="color: var(--text);">Block form open</span><span style="font-size: 12px; color: var(--text-light);">“Blocked” pressed — form expands in place, Mark done disables.</span></div>
+  
+<article class="card" style="width: 100%; max-width: 760px; display: flex; flex-direction: column;">
+  <div style="display: flex; flex-direction: column; gap: 14px; padding: 28px 28px 0;">
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <span class="mono" style="color: var(--text-light);">SYN-004</span>
+      <span class="chip chip-active">Active</span>
+      <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted);"><svg class="ico" viewBox="0 0 16 16" aria-label="High priority"><rect x="1" y="11" width="3" height="4" rx="1" style="fill: var(--text-muted)"></rect><rect x="5" y="8" width="3" height="7" rx="1" style="fill: var(--text-muted)"></rect><rect x="9" y="5" width="3" height="10" rx="1" style="fill: var(--text-muted)"></rect><rect x="13" y="2" width="3" height="13" rx="1" style="fill: var(--border-strong)"></rect></svg>High</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-muted);"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"></circle><path d="M8 4.5V8l2.5 1.5"></path></svg>3h</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-muted); margin-left: auto;"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 9.5a2.5 2.5 0 0 0 3.5 0l2-2a2.5 2.5 0 0 0-3.5-3.5l-.75.75"></path><path d="M9.5 6.5a2.5 2.5 0 0 0-3.5 0l-2 2a2.5 2.5 0 0 0 3.5 3.5l.75-.75"></path></svg>Depends on <span class="mono" style="color: var(--mint-text);">SYN-003</span><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--mint-text)"><path d="M3.5 8.5l3 3 6-7"></path></svg></span>
+    </div>
+    <h1 class="display" style="font-size: 36px; line-height: 1.15; margin: 0;">PDF export for invoices</h1>
+    <p style="font-size: 15px; line-height: 1.6; color: var(--text-muted); margin: 0; text-wrap: pretty;">Render a finished invoice to a downloadable PDF from the invoice detail page. Reuse the editor’s line-item layout so the PDF matches what the user sees on screen. Generate it server-side so the file is identical regardless of browser.</p>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 10px; padding: 24px 28px;">
+    <div class="caption">Acceptance criteria</div>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div class="ac"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--border-strong)"><circle cx="8" cy="8" r="6"></circle></svg><span>“Download PDF” on an invoice page returns a file named INV-&lt;number&gt;.pdf</span></div><div class="ac"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--border-strong)"><circle cx="8" cy="8" r="6"></circle></svg><span>PDF shows client, line items, totals, due date, and payment terms</span></div><div class="ac"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--border-strong)"><circle cx="8" cy="8" r="6"></circle></svg><span>Rendering completes in under 2s for an invoice with 50 line items</span></div><div class="ac"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--border-strong)"><circle cx="8" cy="8" r="6"></circle></svg><span>Works for invoices with and without a logo</span></div>
+    </div>
+  </div>
+  
+  <div style="display: flex; align-items: center; gap: 12px; padding: 20px 28px 24px; border-top: 1px solid var(--border);">
+    
+      <button class="btn btn-dark is-disabled"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-7"></path></svg>Mark done</button>
+  </div>
+  
+    <div style="display: flex; flex-direction: column; gap: 10px; padding: 20px 28px 24px; border-top: 1px solid var(--border); background: var(--surface); border-radius: 0 0 var(--radius-lg) var(--radius-lg);">
+      <label style="font-size: 14px; font-weight: 600;">What’s blocking it?</label>
+      <div class="textarea focus" style="min-height: 76px;">Puppeteer needs a headless Chromium on Vercel and the binary is over the 50 MB function limit.<span style="border-left: 1.5px solid var(--text); margin-left: 1px;"></span></div>
+      <span style="font-size: 12px; color: var(--text-light);">Blocked tickets are set aside for good — regenerate the queue later to re-sequence around them.</span>
+      <div style="display: flex; align-items: center; gap: 12px; margin-top: 4px;">
+        <button class="btn btn-dark btn-sm">Skip this ticket</button>
+        <button class="btn btn-ghost btn-sm">Cancel</button>
+      </div>
+    </div>
+</article>
+</div>
+  
+<div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; align-items: baseline; gap: 10px;"><span class="mono" style="color: var(--text);">Submitting</span><span style="font-size: 12px; color: var(--text-light);">Both actions disabled while the server action runs.</span></div>
+  
+<article class="card" style="width: 100%; max-width: 760px; display: flex; flex-direction: column;">
+  <div style="display: flex; flex-direction: column; gap: 14px; padding: 28px 28px 0;">
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <span class="mono" style="color: var(--text-light);">SYN-004</span>
+      <span class="chip chip-active">Active</span>
+      <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted);"><svg class="ico" viewBox="0 0 16 16" aria-label="High priority"><rect x="1" y="11" width="3" height="4" rx="1" style="fill: var(--text-muted)"></rect><rect x="5" y="8" width="3" height="7" rx="1" style="fill: var(--text-muted)"></rect><rect x="9" y="5" width="3" height="10" rx="1" style="fill: var(--text-muted)"></rect><rect x="13" y="2" width="3" height="13" rx="1" style="fill: var(--border-strong)"></rect></svg>High</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-muted);"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"></circle><path d="M8 4.5V8l2.5 1.5"></path></svg>3h</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-muted); margin-left: auto;"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 9.5a2.5 2.5 0 0 0 3.5 0l2-2a2.5 2.5 0 0 0-3.5-3.5l-.75.75"></path><path d="M9.5 6.5a2.5 2.5 0 0 0-3.5 0l-2 2a2.5 2.5 0 0 0 3.5 3.5l.75-.75"></path></svg>Depends on <span class="mono" style="color: var(--mint-text);">SYN-003</span><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--mint-text)"><path d="M3.5 8.5l3 3 6-7"></path></svg></span>
+    </div>
+    <h1 class="display" style="font-size: 36px; line-height: 1.15; margin: 0;">PDF export for invoices</h1>
+    <p style="font-size: 15px; line-height: 1.6; color: var(--text-muted); margin: 0; text-wrap: pretty;">Render a finished invoice to a downloadable PDF from the invoice detail page. Reuse the editor’s line-item layout so the PDF matches what the user sees on screen. Generate it server-side so the file is identical regardless of browser.</p>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 10px; padding: 24px 28px;">
+    <div class="caption">Acceptance criteria</div>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div class="ac"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--border-strong)"><circle cx="8" cy="8" r="6"></circle></svg><span>“Download PDF” on an invoice page returns a file named INV-&lt;number&gt;.pdf</span></div><div class="ac"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--border-strong)"><circle cx="8" cy="8" r="6"></circle></svg><span>PDF shows client, line items, totals, due date, and payment terms</span></div><div class="ac"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--border-strong)"><circle cx="8" cy="8" r="6"></circle></svg><span>Rendering completes in under 2s for an invoice with 50 line items</span></div><div class="ac"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--border-strong)"><circle cx="8" cy="8" r="6"></circle></svg><span>Works for invoices with and without a logo</span></div>
+    </div>
+  </div>
+  
+  <div style="display: flex; align-items: center; gap: 12px; padding: 20px 28px 24px; border-top: 1px solid var(--border);">
+    
+      <button class="btn btn-dark is-disabled"><svg class="ico spin" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2a6 6 0 1 1-6 6"></path></svg>Marking done…</button>
+      <button class="btn btn-outline is-disabled">Blocked</button>
+  </div>
+  
+</article>
+</div>
+  
+<div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; align-items: baseline; gap: 10px;"><span class="mono" style="color: var(--text);">Error</span><span style="font-size: 12px; color: var(--text-light);">Action failed — inline, non-blocking, the card stays usable.</span></div>
+  
+<article class="card" style="width: 100%; max-width: 760px; display: flex; flex-direction: column;">
+  <div style="display: flex; flex-direction: column; gap: 14px; padding: 28px 28px 0;">
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <span class="mono" style="color: var(--text-light);">SYN-004</span>
+      <span class="chip chip-active">Active</span>
+      <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted);"><svg class="ico" viewBox="0 0 16 16" aria-label="High priority"><rect x="1" y="11" width="3" height="4" rx="1" style="fill: var(--text-muted)"></rect><rect x="5" y="8" width="3" height="7" rx="1" style="fill: var(--text-muted)"></rect><rect x="9" y="5" width="3" height="10" rx="1" style="fill: var(--text-muted)"></rect><rect x="13" y="2" width="3" height="13" rx="1" style="fill: var(--border-strong)"></rect></svg>High</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-muted);"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"></circle><path d="M8 4.5V8l2.5 1.5"></path></svg>3h</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-muted); margin-left: auto;"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 9.5a2.5 2.5 0 0 0 3.5 0l2-2a2.5 2.5 0 0 0-3.5-3.5l-.75.75"></path><path d="M9.5 6.5a2.5 2.5 0 0 0-3.5 0l-2 2a2.5 2.5 0 0 0 3.5 3.5l.75-.75"></path></svg>Depends on <span class="mono" style="color: var(--mint-text);">SYN-003</span><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--mint-text)"><path d="M3.5 8.5l3 3 6-7"></path></svg></span>
+    </div>
+    <h1 class="display" style="font-size: 36px; line-height: 1.15; margin: 0;">PDF export for invoices</h1>
+    <p style="font-size: 15px; line-height: 1.6; color: var(--text-muted); margin: 0; text-wrap: pretty;">Render a finished invoice to a downloadable PDF from the invoice detail page. Reuse the editor’s line-item layout so the PDF matches what the user sees on screen. Generate it server-side so the file is identical regardless of browser.</p>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 10px; padding: 24px 28px;">
+    <div class="caption">Acceptance criteria</div>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div class="ac"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--border-strong)"><circle cx="8" cy="8" r="6"></circle></svg><span>“Download PDF” on an invoice page returns a file named INV-&lt;number&gt;.pdf</span></div><div class="ac"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--border-strong)"><circle cx="8" cy="8" r="6"></circle></svg><span>PDF shows client, line items, totals, due date, and payment terms</span></div><div class="ac"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--border-strong)"><circle cx="8" cy="8" r="6"></circle></svg><span>Rendering completes in under 2s for an invoice with 50 line items</span></div><div class="ac"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--border-strong)"><circle cx="8" cy="8" r="6"></circle></svg><span>Works for invoices with and without a logo</span></div>
+    </div>
+  </div>
+  
+    <div style="display: flex; align-items: flex-start; gap: 10px; margin: 0 28px 24px; padding: 12px 16px; border-radius: var(--radius-sm); background: var(--peach-soft); color: var(--peach-text); font-size: 13px; line-height: 1.45;">
+      <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5l6 11H2z"></path><path d="M8 7v3M8 12h.01"></path></svg>
+      <span>Couldn’t mark this ticket done — the request timed out. Your work isn’t lost; try again.</span>
+    </div>
+  <div style="display: flex; align-items: center; gap: 12px; padding: 20px 28px 24px; border-top: 1px solid var(--border);">
+    
+      <button class="btn btn-dark"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-7"></path></svg>Mark done</button>
+      <button class="btn btn-outline">Blocked</button>
+  </div>
+  
+</article>
+</div>
+</div>
+</div>
+</x-dc>
+<script data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Theme"},"$preview":{"width":860,"height":1960}}'>
+class Component extends DCLogic {
+  renderVals() { return { theme: this.props.theme ?? 'light' }; }
+}
+</script>
+</body>
+</html>

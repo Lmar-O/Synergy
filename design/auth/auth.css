@@ -1,0 +1,79 @@
+
+/* ---- Auth shell + Clerk-card recipe (see handover: additions to §3) ---- */
+
+.auth-page { min-height: 900px; background: var(--bg); display: grid; grid-template-rows: 56px 1fr; position: relative; overflow: hidden; }
+/* 56px and a 28px tile as §3, but no bottom border: this is not the app shell,
+   and a rule across the top would cut through the bloom layer. */
+.auth-head { display: flex; align-items: center; padding: 0 20px; }
+.mark-lockup { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.mark { width: 28px; height: 28px; border-radius: 8px; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; }
+.mark-word { font-size: 17px; color: var(--text); }
+.auth-body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding-bottom: 56px; }
+
+.clerk-card { width: 400px; padding: 28px; display: flex; flex-direction: column; }
+.card-header { display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px; }
+.card-title { font-size: 22px; line-height: 1.25; margin: 0; color: var(--text); }
+.card-sub { font-size: 14px; line-height: 1.5; color: var(--text-muted); margin: 0; text-wrap: pretty; }
+
+.social-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.social-btn { height: 44px; padding: 0 12px; color: var(--text); font-weight: 500; }
+.divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
+.divider-line { flex: 1; height: 1px; background: var(--border); }
+.divider-text { font-size: 13px; color: var(--text-light); }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field + .field { margin-top: 16px; }
+.field-label-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.field-label { font-size: 13px; font-weight: 500; color: var(--text); }
+.field-action { font-size: 13px; color: var(--primary-text); text-decoration: none; }
+/* Single-line variant of the .textarea recipe (design.md §3) at 44px. */
+.textarea.line { min-height: 0; height: 44px; padding: 0 14px; display: flex; align-items: center; }
+.textarea.err { border-color: var(--peach-text); }
+.textarea .caret { width: 1px; height: 18px; background: var(--text); margin-left: 1px; display: none; }
+.textarea.line.focus .caret { display: block; }
+.input-group { position: relative; }
+.input-group .textarea.line { padding-right: 42px; }
+.input-group .reveal { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--text-light); background: none; border: 0; padding: 0; cursor: pointer; }
+.dots { letter-spacing: 0.18em; color: var(--text); }
+
+/* Inline error — design.md §3 "Inline error" row, not yet in system.css. */
+.inline-err { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--peach-soft); color: var(--peach-text); font-size: 13px; line-height: 1.5; text-wrap: pretty; }
+.inline-err .ico { margin-top: 1px; }
+
+.submit { width: 100%; height: 44px; margin-top: 20px; }
+.submit .b-idle, .submit .b-busy { align-items: center; gap: 8px; display: none; }
+.submit:not(.busy) .b-idle { display: inline-flex; }
+.submit.busy .b-busy { display: inline-flex; }
+
+.identity { display: flex; align-items: center; gap: 8px; align-self: flex-start; padding: 4px 6px 4px 12px; border-radius: var(--radius-pill); background: var(--surface-2); font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+.identity button { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 0; border-radius: 50%; background: none; color: var(--text-light); cursor: pointer; }
+
+.card-footer { display: flex; align-items: center; justify-content: center; gap: 5px; margin: 24px -28px -28px; padding: 16px; border-top: 1px solid var(--border); background: var(--surface); border-radius: 0 0 var(--radius-lg) var(--radius-lg); font-size: 13px; }
+.footer-text { color: var(--text-muted); }
+.footer-link { color: var(--text); font-weight: 500; text-decoration: none; }
+.app.dark .card-footer { background: var(--bg); }
+.clerk-badge { text-align: center; font-size: 12px; color: var(--text-light); }
+.clerk-badge strong { font-weight: 600; color: var(--text-muted); }
+
+.page-note { font-size: 13px; color: var(--text-light); margin: 8px 0 0; }
+
+/* Hover, per §6.7 — values from src/app/landing.css (.btn-outline:hover,
+   .nav-links a:hover). .btn-dark has no hover rule there, so it dims. */
+.btn-outline:hover { color: var(--text); background: var(--surface-2); }
+.btn-dark:hover { opacity: 0.9; }
+.footer-link:hover, .field-action:hover { text-decoration: underline; }
+.identity button:hover, .input-group .reveal:hover { color: var(--text-muted); background: var(--surface-2); border-radius: 50%; }
+
+/* E — the skeleton's bars are smaller than the text they stand in for, so each
+   sits in a line box the height of the real one. Without this the card grows
+   ~35px when Clerk mounts, which is the shift the skeleton exists to prevent. */
+.skel-line { display: flex; align-items: center; }
+
+/* Skeleton primitive — static by design: §2 Motion allows one looping animation
+   (.ai-dot) and this is not it. */
+.skel { background: var(--surface-2); border-radius: var(--radius-sm); }
+.skel-pill { border-radius: var(--radius-pill); }
+
+/* .bloom-layer, .bloom-warm and .bloom-cool now live in system.css (design.md
+   §3 / §4). All this page owns is the containing block and the stacking. */
+.auth-head, .auth-body { position: relative; z-index: 1; }

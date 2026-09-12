@@ -1,0 +1,82 @@
+<!-- /app when the ticket read fails — the real treatment for the inline
+     "Could not load your tickets: {error.message}" paragraph in
+     src/app/app/page.tsx. The shell survives: header, rail frame, toolbar.
+     The rail keeps its "Queue" heading and an empty progress track (the
+     counts are exactly what we failed to read) and carries the inline-error
+     block where rows would be. Regenerating is disabled — it retires
+     unstarted tickets, and we cannot see them. The Focus pane repeats the
+     same failure; it is not a stall card, because nothing has stalled. -->
+<div class="app {{theme}}" style="width: 1440px; height: 900px; overflow: hidden; display: flex; flex-direction: column; background: var(--bg);">
+
+<div style="display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 20px; border-bottom: 1px solid var(--border); background: var(--bg); flex-shrink: 0;">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <div style="width: 28px; height: 28px; border-radius: 8px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff;"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1c.6 4 3 6.4 7 7-4 .6-6.4 3-7 7-.6-4-3-6.4-7-7 4-.6 6.4-3 7-7z" fill="currentColor" stroke="none"></path></svg></div>
+    <span class="display" style="font-size: 17px;">Synergy</span>
+  </div>
+  <div style="display: flex; align-items: center; gap: 14px;">
+    <span style="font-size: 13px; color: var(--text-muted);">Ledgerly</span>
+    <span class="chip chip-neutral">North Star v3</span>
+    <div style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--mint) 0%, var(--primary) 100%);"></div>
+  </div>
+</div>
+
+<div style="display: flex; flex: 1; min-height: 0;">
+
+  <aside style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--rail); border-right: 1px solid var(--border); overflow: hidden;">
+    <div style="padding: 20px 20px 16px; display: flex; flex-direction: column; gap: 12px; border-bottom: 1px solid var(--border);">
+      <div style="display: flex; align-items: baseline; justify-content: space-between;">
+        <span class="display" style="font-size: 15px;">Queue</span>
+        <span style="font-size: 12px; color: var(--text-light);">Counts unavailable</span>
+      </div>
+      <div class="prog"></div>
+    </div>
+
+    <div style="flex: 1; overflow: hidden; padding: 16px 10px; display: flex; flex-direction: column; gap: 12px;">
+      <div class="err">
+        <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5l6 11H2z"></path><path d="M8 7v3M8 12h.01"></path></svg>
+        <span>Couldn’t load the queue. Your tickets are still there — the rail fills in as soon as the read comes back.</span>
+      </div>
+    </div>
+
+    <div style="padding: 14px 16px; border-top: 1px solid var(--border); flex-shrink: 0; display: flex; flex-direction: column; gap: 8px;">
+      <button class="btn btn-outline btn-sm is-disabled" style="width: 100%; justify-content: center;"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8a5 5 0 0 1-8.8 3.2M3 8a5 5 0 0 1 8.8-3.2"></path><path d="M12 2v3h-3M4 14v-3h3"></path></svg>Regenerate queue</button>
+      <span style="font-size: 11px; color: var(--text-light); text-align: center; line-height: 1.4; text-wrap: pretty;">Unavailable while the queue is unreadable — regenerating retires unstarted tickets.</span>
+    </div>
+  </aside>
+
+  <main style="flex: 1; min-width: 0; display: flex; flex-direction: column; background: var(--bg);">
+
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; flex-shrink: 0;">
+      <div class="seg">
+        <div class="seg-item on"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"></circle><circle cx="8" cy="8" r="2.25" fill="currentColor" stroke="none"></circle></svg>Focus</div>
+        <div class="seg-item"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.5h10M3 8h10M3 11.5h7"></path></svg>Queue</div>
+        <div class="seg-item"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="3.2" height="10" rx="1"></rect><rect x="6.4" y="3" width="3.2" height="7" rx="1"></rect><rect x="10.8" y="3" width="3.2" height="10" rx="1"></rect></svg>Board</div>
+      </div>
+      <button class="btn btn-ghost btn-sm"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 2.5l3 3-7.5 7.5H3v-3z"></path></svg>Edit brief</button>
+    </div>
+
+    <div style="flex: 1; min-height: 0; overflow: hidden; padding: 32px 32px 40px; display: flex; flex-direction: column; align-items: center;">
+      <div class="card" style="width: 100%; max-width: 760px; display: flex; flex-direction: column; gap: 20px; padding: 28px;">
+
+        <div class="err">
+          <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5l6 11H2z"></path><path d="M8 7v3M8 12h.01"></path></svg>
+          <span>Couldn’t load your tickets — the database didn’t answer.</span>
+        </div>
+
+        <p style="font-size: 15px; line-height: 1.6; color: var(--text-muted); margin: 0; text-wrap: pretty;">Nothing has changed. Your tickets, your progress and your North Star are all still saved — this was a read that didn’t come back, not a write that went wrong. Try again; if it keeps failing, the detail below is what to search for.</p>
+
+        <div class="detail">
+          <span class="caption">Error detail</span>
+          <span class="detail-val">TypeError: fetch failed — cause: connect ETIMEDOUT db.ledgerly.supabase.co:5432</span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 12px; padding-top: 4px;">
+          <button class="btn btn-dark"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8a5 5 0 0 1-8.8 3.2M3 8a5 5 0 0 1 8.8-3.2"></path><path d="M12 2v3h-3M4 14v-3h3"></path></svg>Try again</button>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+</div>

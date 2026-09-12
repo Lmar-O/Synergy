@@ -1,0 +1,40 @@
+<!-- not-found.tsx — global, so it cannot assume a signed-in user with a
+     North Star: the header carries the wordmark only, no product name, no
+     version chip, no avatar. No rail. One card at 560, one way out.
+     The tile is neutral rather than peach: a wrong address is not a failure,
+     and peach is reserved for blocked work and errors. The requested path is
+     shown in the same detail well the error boundary uses — it is usually
+     the fastest way to spot a typo. -->
+<div class="app {{theme}}" style="width: 1440px; height: 900px; overflow: hidden; display: flex; flex-direction: column; background: var(--bg);">
+
+<div style="display: flex; align-items: center; height: 56px; padding: 0 20px; border-bottom: 1px solid var(--border); background: var(--bg); flex-shrink: 0;">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <div style="width: 28px; height: 28px; border-radius: 8px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff;"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1c.6 4 3 6.4 7 7-4 .6-6.4 3-7 7-.6-4-3-6.4-7-7 4-.6 6.4-3 7-7z" fill="currentColor" stroke="none"></path></svg></div>
+    <span class="display" style="font-size: 17px;">Synergy</span>
+  </div>
+</div>
+
+<div style="flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 32px 72px;">
+  <div class="card" style="width: 100%; max-width: 560px; display: flex; flex-direction: column; gap: 18px; padding: 36px 32px 32px; align-items: flex-start;">
+
+    <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--surface-2); color: var(--text-muted); display: flex; align-items: center; justify-content: center;">
+      <svg class="ico ico-20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7.2 8.8 5.4 10.6a2.6 2.6 0 0 1-3.7-3.7l1.8-1.8"></path><path d="M8.8 7.2l1.8-1.8a2.6 2.6 0 0 1 3.7 3.7l-1.8 1.8"></path></svg>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <h1 class="display" style="font-size: 22px; line-height: 1.25; margin: 0;">There’s nothing at this address</h1>
+      <p style="font-size: 14px; line-height: 1.6; color: var(--text-muted); margin: 0; text-wrap: pretty;">The link you followed points at a page Synergy doesn’t have — a typo, or something that moved. Nothing is missing: your queue is where you left it.</p>
+    </div>
+
+    <div class="detail" style="width: 100%;">
+      <span class="caption">Requested path</span>
+      <span class="detail-val">/app/tickets/SYN-042</span>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">
+      <button class="btn btn-dark"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4L3 8l4 4"></path></svg>Back to your queue</button>
+    </div>
+
+  </div>
+</div>
+</div>

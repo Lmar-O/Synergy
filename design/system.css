@@ -33,6 +33,8 @@
   --border: rgba(0,0,0,0.08);
   --border-strong: rgba(0,0,0,0.14);
   --on-dark: #ffffff;
+  --bloom-warm: oklch(76% 0.18 345 / 0.34);
+  --bloom-cool: oklch(80% 0.14 220 / 0.26);
 
   --radius-sm: 8px; --radius-md: 14px; --radius-lg: 20px; --radius-xl: 28px; --radius-pill: 999px;
   --font-display: 'Object Sans', system-ui, -apple-system, sans-serif;
@@ -73,6 +75,10 @@
   --border: rgba(255,255,255,0.08);
   --border-strong: rgba(255,255,255,0.15);
   --on-dark: oklch(15% 0.012 265);
+  /* The landing is light-only. At the light alphas these read as muddy slabs
+     over a 15% ground rather than glow, so dark runs them at ~0.65x. */
+  --bloom-warm: oklch(76% 0.18 345 / 0.22);
+  --bloom-cool: oklch(80% 0.14 220 / 0.17);
   --shadow-card: 0 2px 10px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06);
   --shadow-float: 0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08);
   --shadow-btn: 0 1px 3px rgba(0,0,0,0.5);
@@ -86,7 +92,11 @@ a { color: var(--primary-text); text-decoration: none; } a:hover { color: var(--
 .display { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.01em; }
 .mono { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.02em; }
 .caption { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); }
-.muted { color: var(--text-muted); } .light { color: var(--text-light); }
+.muted { color: var(--text-muted); }
+/* :not(.app) is load-bearing: the artboard root is `class="app {{theme}}"`, so in
+   light mode the theme value lands on the same element as this utility and would
+   otherwise repaint every default-coloured string on the page as --text-light. */
+.light:not(.app) { color: var(--text-light); }
 .ico { width: 16px; height: 16px; flex-shrink: 0; display: block; }
 .ico-20 { width: 20px; height: 20px; }
 
@@ -111,23 +121,41 @@ a { color: var(--primary-text); text-decoration: none; } a:hover { color: var(--
 .seg-item { display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 500; color: var(--text-muted); }
 .seg-item.on { background: var(--card); color: var(--text); box-shadow: var(--shadow-card); }
 
-.row { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--radius-sm); }
+.row { display: flex; align-items: flex-start; gap: 12px; padding: 8px 12px; border-radius: var(--radius-sm); }
 .row.on { background: var(--primary-soft); }
-.row-title { font-size: 13px; color: var(--text); line-height: 1.35; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.row-est { font-size: 12px; color: var(--text-light); flex-shrink: 0; }
+.row > .ico { margin-top: 1px; }
+.row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.row-title { font-size: 13px; color: var(--text); line-height: 1.35; text-wrap: pretty; }
+.row-est { font-size: 12px; color: var(--text-light); }
 
-.qrow { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-top: 1px solid var(--border); }
+.qrow { display: flex; align-items: flex-start; gap: 16px; padding: 12px 16px; border-top: 1px solid var(--border); }
 .qrow:first-child { border-top: 0; }
 .qrow.on { background: var(--primary-soft); border-radius: var(--radius-sm); border-top-color: transparent; }
 .qrow.on + .qrow { border-top-color: transparent; }
-.qrow-title { font-size: 14px; color: var(--text); }
+.qrow > .ico { margin-top: 1px; }
+.qrow-title { font-size: 14px; color: var(--text); line-height: 1.35; text-wrap: pretty; }
 .qrow-note { font-size: 12px; color: var(--text-light); margin-top: 2px; display: flex; align-items: center; gap: 5px; }
+.qrow-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.qrow-meta { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--text-muted); }
+.qrow-chain { width: 240px; flex-shrink: 0; align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 5px; padding-left: 16px; border-left: 1px solid var(--border); }
+.chain-line { display: flex; align-items: center; gap: 8px; min-height: 20px; }
+.chain-lbl { width: 68px; flex-shrink: 0; white-space: nowrap; }
+.chain-ref { font-family: var(--font-mono); letter-spacing: 0.02em; }
+.qblock { display: flex; align-items: flex-start; gap: 10px; margin: 0 16px 12px; padding: 12px 16px; border-radius: var(--radius-sm); background: var(--peach-soft); color: var(--peach-text); font-size: 13px; line-height: 1.45; }
 
 .sect { display: flex; align-items: center; gap: 8px; padding: 0 16px 8px; }
 .sect-count { font-size: 11px; font-weight: 600; color: var(--text-light); background: var(--surface-2); padding: 1px 7px; border-radius: var(--radius-pill); }
+.sect-tot { margin-left: auto; font-size: 12px; color: var(--text-muted); }
 
-.bcard { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-card); }
+.bcard { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-card); }
 .bcard.on { box-shadow: var(--ring-primary); border-color: transparent; }
+
+.bcol { display: flex; flex-direction: column; gap: 8px; padding: 8px; border-radius: var(--radius-md); min-height: 120px; }
+.bcol-queued { background: var(--yellow-soft); }
+.bcol-active { background: var(--primary-soft); }
+.bcol-done { background: var(--mint-soft); }
+.bcol-blocked { background: var(--peach-soft); }
+.bcol-head { display: flex; align-items: center; gap: 8px; padding: 0 4px; font-size: 13px; font-weight: 600; }
 
 .card { background: var(--card); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); }
 .ac { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.5; color: var(--text); }
@@ -138,3 +166,16 @@ a { color: var(--primary-text); text-decoration: none; } a:hover { color: var(--
 @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1);} 50% { opacity: .5; transform: scale(.8);} }
 .spin { animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- Bloom layer — FORM PAGES ONLY (design.md §4). ----
+   The landing page's own background, from src/components/landing-bloom.tsx
+   (bloom-1 and bloom-3 sampled at scroll progress 0), so sign-in, sign-up and
+   the North Star brief read as continuous with the page people arrive from.
+   Two washes on a diagonal; the parent needs `position: relative; overflow:
+   hidden` and the page's own content needs `position: relative; z-index: 1`.
+   Static: there is no scroll here to drift them, and .ai-dot owns the only
+   looping animation. Never behind a view that has a rail. */
+.bloom-layer { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.bloom { position: absolute; width: 520px; height: 440px; border-radius: 50%; filter: blur(100px); }
+.bloom-warm { top: -160px; left: -120px; background: var(--bloom-warm); }
+.bloom-cool { bottom: -160px; right: -120px; background: var(--bloom-cool); }

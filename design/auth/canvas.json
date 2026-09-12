@@ -1,0 +1,16 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 900, "title": "Sign in" },
+    { "file": "SignUp.dc.html", "x": 1520, "y": 0, "w": 1440, "h": 900, "title": "Sign up" },
+    { "file": "Error.dc.html", "x": 0, "y": 1120, "w": 1440, "h": 900, "title": "Sign in — wrong password" },
+    { "file": "Loading.dc.html", "x": 1520, "y": 1120, "w": 1440, "h": 900, "title": "Loading" }
+  ],
+  "annotations": [
+    { "id": "shell-vs-clerk", "x": 0, "y": -190, "w": 640, "text": "Ours: the bloom layer, the page ground, the 56px wordmark header.\nClerk's: everything inside the card. Its structure can't change — only its skin, through the appearance prop. Its strings can change, through localization." },
+    { "id": "bloom-note", "x": 700, "y": -190, "w": 620, "text": "The two washes are landing-bloom.tsx's bloom-1 and bloom-3 at scroll progress 0, placed on a diagonal to frame the card. Static: there is no scroll here to drive the drift." },
+    { "id": "flow-note", "x": 1520, "y": -190, "w": 640, "text": "Sign-up asks for email and password on one card. Sign-in is identifier-first: email, Continue, then the password step — which is what the Error artboard shows." },
+    { "id": "error-note", "x": 0, "y": 960, "w": 640, "text": "Clerk's own form_password_incorrect string, kept because it already reads as §5 wants. It is replaceable via localization if you'd rather it said something else." },
+    { "id": "loading-note", "x": 1520, "y": 960, "w": 640, "text": "Painted by <ClerkLoading>, not by Clerk. Its card measures 419px — the same as the sign-in card — so nothing shifts when Clerk mounts." }
+  ],
+  "launch": { "view": "canvas" }
+}
