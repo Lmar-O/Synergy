@@ -1,0 +1,1 @@
+2026-09-12T06:05Z | design/docs | Ticket View canvas v1 — applied the 6 critique items, redesigned the Queue pane around dependency chains, then gave the Board a fixed tint per group (.bcol-{queued,active,blocked,done}); added the same recipes to design/system.css

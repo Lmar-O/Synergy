@@ -1,0 +1,86 @@
+<div class="app {{theme}}" style="width: 1440px; height: 900px; overflow: hidden; display: flex; flex-direction: column; background: var(--bg);">
+
+<div style="display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 20px; border-bottom: 1px solid var(--border); background: var(--bg); flex-shrink: 0;">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <div style="width: 28px; height: 28px; border-radius: 8px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff;"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1c.6 4 3 6.4 7 7-4 .6-6.4 3-7 7-.6-4-3-6.4-7-7 4-.6 6.4-3 7-7z" fill="currentColor" stroke="none"></path></svg></div>
+    <span class="display" style="font-size: 17px;">Synergy</span>
+  </div>
+  <div style="display: flex; align-items: center; gap: 14px;">
+    <span style="font-size: 13px; color: var(--text-muted);">Ledgerly</span>
+    <span class="chip chip-neutral">North Star v3</span>
+    <div style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--mint) 0%, var(--primary) 100%);"></div>
+  </div>
+</div>
+<div style="display: flex; flex: 1; min-height: 0;">
+<aside style="width: 320px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--rail); border-right: 1px solid var(--border); overflow: hidden;">
+  <div style="padding: 20px 20px 16px; display: flex; flex-direction: column; gap: 12px; border-bottom: 1px solid var(--border); flex-shrink: 0;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
+      <span class="display" style="font-size: 15px;">Queue</span>
+      <span style="font-size: 12px; color: var(--text-muted);">Nothing queued yet</span>
+    </div>
+    <div class="prog"></div>
+  </div>
+  <div style="flex: 1; min-height: 0; overflow: auto; padding: 12px; display: flex; flex-direction: column; gap: 14px;">
+    <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 0 28px 40px; text-align: center;">
+      <div style="color: var(--text-light);"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9.5V12a1.5 1.5 0 0 0 1.5 1.5h8a1.5 1.5 0 0 0 1.5-1.5V9.5"></path><path d="M2.5 9.5h3l1 2h3l1-2h3"></path><path d="M4.5 9.5l1-6h5l1 6"></path></svg></div>
+      <span style="font-size: 13px; color: var(--text-light); line-height: 1.5; text-wrap: pretty;">Your sequenced queue lands here.</span>
+    </div>
+  </div>
+  <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; flex-shrink: 0;">
+    <button class="btn btn-outline btn-sm is-disabled" style="justify-content: center;"><svg class="ico spin" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M8 2a6 6 0 1 1-4.243 1.757"></path></svg>Generating…</button>
+    <span style="font-size: 11px; color: var(--text-light); text-align: center; line-height: 1.4;">Both triggers share one request — the rail waits with the card.</span>
+  </div>
+</aside>
+  <main style="flex: 1; min-width: 0; display: flex; flex-direction: column; background: var(--bg);">
+<div style="display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; flex-shrink: 0;">
+  <div class="seg">
+    <div class="seg-item on"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"></circle><circle cx="8" cy="8" r="2.25" fill="currentColor" stroke="none"></circle></svg>Focus</div>
+    <div class="seg-item"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.5h10M3 8h10M3 11.5h7"></path></svg>Queue</div>
+    <div class="seg-item"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="3.2" height="10" rx="1"></rect><rect x="6.4" y="3" width="3.2" height="7" rx="1"></rect><rect x="10.8" y="3" width="3.2" height="10" rx="1"></rect></svg>Board</div>
+  </div>
+  <button class="btn btn-ghost btn-sm is-disabled"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 2.5l3 3-7.5 7.5H3v-3z"></path></svg>Edit brief</button>
+</div>
+  <div style="flex: 1; min-height: 0; overflow: hidden; padding: 32px 32px 72px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+
+<article class="card" style="width: 100%; max-width: 760px; display: flex; flex-direction: column; gap: 20px; padding: 36px 32px 32px;">
+
+  <div style="display: flex; align-items: flex-start; gap: 16px;">
+    <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--primary-soft); color: var(--primary-text); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg class="ico ico-20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1c.6 4 3 6.4 7 7-4 .6-6.4 3-7 7-.6-4-3-6.4-7-7 4-.6 6.4-3 7-7z" fill="currentColor" stroke="none"></path></svg></div>
+    <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 2px;">
+      <h1 class="display" style="font-size: 22px; line-height: 1.25; margin: 0;">Sequencing your first queue</h1>
+      <p style="font-size: 14px; line-height: 1.6; color: var(--text-muted); margin: 0; text-wrap: pretty;">Synergy is reading your North Star and planning the work to finish this milestone. Leave this page open — the queue fills in the rail when it lands.</p>
+    </div>
+  </div>
+
+  <div class="work">
+    <span class="ai-dot"></span>
+    <span>Working. This usually takes 10–30 seconds.</span>
+    <span class="work-el">18s</span>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 2px; padding: 16px 18px; border-radius: var(--radius-sm); background: var(--surface);">
+    <div class="caption" style="padding-bottom: 8px;">What was sent</div>
+    <div style="display: flex; gap: 16px; align-items: baseline; padding: 5px 0;">
+      <span style="width: 92px; flex-shrink: 0; font-size: 12px; color: var(--text-light);">Brief</span>
+      <span style="font-size: 13px; color: var(--text); line-height: 1.5;">North Star v3 — Ledgerly</span>
+    </div>
+    <div style="display: flex; gap: 16px; align-items: baseline; padding: 5px 0;">
+      <span style="width: 92px; flex-shrink: 0; font-size: 12px; color: var(--text-light);">Milestone</span>
+      <span style="font-size: 13px; color: var(--text); line-height: 1.5; text-wrap: pretty;">Get an invoice from draft to paid without leaving the app</span>
+    </div>
+    <div style="display: flex; gap: 16px; align-items: baseline; padding: 5px 0;">
+      <span style="width: 92px; flex-shrink: 0; font-size: 12px; color: var(--text-light);">Expect</span>
+      <span style="font-size: 13px; color: var(--text); line-height: 1.5;">Up to 10 tickets, 2–4 hours each, sequenced by dependency</span>
+    </div>
+  </div>
+
+  <div class="note">
+    <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"></circle><path d="M8 4.5V8l2.5 1.5"></path></svg>
+    <span>Nothing is written until the whole queue validates. If the request fails you land back here with the same brief and nothing lost.</span>
+  </div>
+
+</article>
+  </div>
+  </main>
+</div>
+</div>

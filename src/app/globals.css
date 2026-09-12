@@ -1,5 +1,515 @@
 @import "tailwindcss";
 
+/* ============================================================================
+   Synergy app design system — ported from design/system.css (design.md §9).
+
+   Every value here is verbatim from that file; it stays the source of truth.
+   Three structural changes were needed to make it a stylesheet rather than an
+   artboard's <style>:
+
+   1. Dark rides `prefers-color-scheme` instead of a `.dark` class. The
+      canvases switch themes with a tweak chip; the app follows the OS, which
+      is what the rest of src/ already assumes (`dark:` in Tailwind).
+   2. Every component rule is scoped under `.app`. These are generic names
+      (.card, .row, .btn, .chip) and landing.css ships its own copy of the same
+      tokens under `.landing` — unscoped rules would cross.
+   3. `--font-display` points at the `next/font/local` variable rather than a
+      bare family name, so Object Sans is self-hosted and preloaded.
+   ========================================================================= */
+
+.app {
+  --primary: oklch(60% 0.22 265);
+  --primary-hover: oklch(48% 0.22 265);
+  --primary-soft: oklch(92% 0.08 265);
+  --primary-text: oklch(48% 0.22 265);
+  --mint: oklch(72% 0.2 155);
+  --mint-soft: oklch(93% 0.07 155);
+  --mint-text: oklch(48% 0.18 155);
+  --lime: oklch(84% 0.22 130);
+  --lime-soft: oklch(94% 0.09 130);
+  --lime-text: oklch(50% 0.2 130);
+  --peach: oklch(82% 0.16 42);
+  --peach-soft: oklch(95% 0.06 42);
+  --peach-text: oklch(52% 0.16 42);
+  --yellow: oklch(86% 0.16 95);
+  --yellow-soft: oklch(94% 0.12 95);
+  --yellow-text: oklch(52% 0.16 90);
+  --bloom-warm: oklch(76% 0.18 345 / 0.34);
+  --bloom-cool: oklch(80% 0.14 220 / 0.26);
+
+  --bg: #ffffff;
+  --rail: oklch(98% 0.01 265);
+  --card: #ffffff;
+  --surface: oklch(98% 0.01 265);
+  --surface-2: oklch(96% 0.015 265);
+  --text: #0d0d10;
+  --text-muted: #6b6b80;
+  --text-light: #9898aa;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.14);
+  --on-dark: #ffffff;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+  --font-display: var(--font-object-sans), system-ui, -apple-system, sans-serif;
+  --font-body: system-ui, -apple-system, "Helvetica Neue", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+  --shadow-card:
+    0 2px 10px rgba(0, 0, 0, 0.07), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  --shadow-float:
+    0 16px 48px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow-btn: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --ring-primary: 0 0 0 2px var(--primary-soft), 0 0 0 3px var(--primary);
+
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .app {
+    --primary: oklch(70% 0.19 265);
+    --primary-hover: oklch(78% 0.16 265);
+    --primary-soft: oklch(28% 0.08 265);
+    --primary-text: oklch(84% 0.11 265);
+    --mint: oklch(74% 0.18 155);
+    --mint-soft: oklch(26% 0.06 155);
+    --mint-text: oklch(82% 0.14 155);
+    --lime-soft: oklch(27% 0.07 130);
+    --lime-text: oklch(84% 0.16 130);
+    --peach: oklch(78% 0.15 42);
+    --peach-soft: oklch(27% 0.05 42);
+    --peach-text: oklch(84% 0.11 42);
+    --yellow-soft: oklch(27% 0.06 95);
+    --yellow-text: oklch(85% 0.12 95);
+    --bloom-warm: oklch(76% 0.18 345 / 0.22);
+    --bloom-cool: oklch(80% 0.14 220 / 0.17);
+
+    --bg: oklch(15% 0.012 265);
+    --rail: oklch(17% 0.012 265);
+    --card: oklch(19.5% 0.012 265);
+    --surface: oklch(19.5% 0.012 265);
+    --surface-2: oklch(23% 0.014 265);
+    --text: oklch(96% 0.006 265);
+    --text-muted: oklch(72% 0.02 265);
+    --text-light: oklch(56% 0.02 265);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.15);
+    --on-dark: oklch(15% 0.012 265);
+    --shadow-card:
+      0 2px 10px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06);
+    --shadow-float:
+      0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    --shadow-btn: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ---- Type helpers ---- */
+
+.app .display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.app .mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+.app .caption {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+.app .muted {
+  color: var(--text-muted);
+}
+.app .light {
+  color: var(--text-light);
+}
+.app .ico {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  display: block;
+}
+.app .ico-20 {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---- Buttons ---- */
+
+.app .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 20px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  cursor: pointer;
+  line-height: 1.3;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.app .btn-dark {
+  background: var(--text);
+  color: var(--bg);
+  box-shadow: var(--shadow-btn);
+}
+.app .btn-dark:hover:not(:disabled) {
+  background: var(--text-muted);
+}
+.app .btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 2px 12px oklch(60% 0.22 265 / 0.175);
+}
+.app .btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+.app .btn-outline {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: var(--border-strong);
+}
+.app .btn-outline:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--text-light);
+}
+.app .btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+}
+.app .btn-ghost:hover:not(:disabled) {
+  color: var(--text);
+}
+.app .btn-sm {
+  font-size: 13px;
+  padding: 7px 14px;
+}
+.app .btn-xs {
+  font-size: 12px;
+  padding: 5px 12px;
+  gap: 6px;
+}
+.app .is-disabled,
+.app .btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.app .btn:focus-visible,
+.app a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ---- Chips ---- */
+
+.app .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+  white-space: nowrap;
+}
+.app .chip-queued {
+  background: var(--yellow-soft);
+  color: var(--yellow-text);
+}
+.app .chip-active {
+  background: var(--primary-soft);
+  color: var(--primary-text);
+}
+.app .chip-done {
+  background: var(--mint-soft);
+  color: var(--mint-text);
+}
+.app .chip-blocked {
+  background: var(--peach-soft);
+  color: var(--peach-text);
+}
+.app .chip-neutral {
+  background: var(--surface-2);
+  color: var(--text-muted);
+}
+.app .chip-outline {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-strong);
+}
+
+/* ---- Segmented control ---- */
+
+.app .seg {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  background: var(--surface-2);
+  border-radius: var(--radius-pill);
+}
+.app .seg-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: all 0.15s ease;
+}
+.app .seg-item:hover {
+  color: var(--text);
+}
+.app .seg-item.on {
+  background: var(--card);
+  color: var(--text);
+  box-shadow: var(--shadow-card);
+}
+
+/* ---- Rail rows (v1: wrap, estimate on its own line) ---- */
+
+.app .row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s ease;
+}
+.app .row.on {
+  background: var(--primary-soft);
+}
+.app a.row:hover:not(.on) {
+  background: var(--surface-2);
+}
+.app .row > .ico {
+  margin-top: 1px;
+}
+.app .row-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.app .row-title {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+.app .row-est {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+/* ---- Cards ---- */
+
+.app .card {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+.app .ac {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.app .prog {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+  display: flex;
+}
+
+/* ---- Inputs ---- */
+
+.app .textarea {
+  width: 100%;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--card);
+  min-height: 88px;
+  transition: all 0.15s ease;
+}
+/* Single-line modifier — from the auth canvas handover. */
+.app .textarea.line {
+  min-height: 0;
+  height: 44px;
+  padding: 0 14px;
+}
+.app .textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+.app .textarea[aria-invalid="true"] {
+  border-color: var(--peach-text);
+}
+
+/* ---- Motion ---- */
+
+.app .ai-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: synergy-pulse 2s infinite;
+}
+@keyframes synergy-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+.app .spin {
+  animation: synergy-spin 1s linear infinite;
+}
+@keyframes synergy-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* design.md §2: keep opacity fades, drop translations. */
+@media (prefers-reduced-motion: reduce) {
+  .app .ai-dot {
+    animation: none;
+    opacity: 0.7;
+  }
+  .app *,
+  .app *::before,
+  .app *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---- Bloom layer — form pages only (design.md §4) ---- */
+
+.app .bloom-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.app .bloom {
+  position: absolute;
+  width: 520px;
+  height: 440px;
+  border-radius: 50%;
+  filter: blur(100px);
+}
+.app .bloom-warm {
+  top: -160px;
+  left: -120px;
+  background: var(--bloom-warm);
+}
+.app .bloom-cool {
+  bottom: -160px;
+  right: -120px;
+  background: var(--bloom-cool);
+}
+
+/* ============================================================================
+   Additions from the system-states canvas (design/canvas-system-states).
+   Built only from the tokens above; see that folder's HANDOVER.md.
+   ========================================================================= */
+
+/* Inline error. design.md §3 describes it; system.css had no class for it.
+   Never a modal or a toast — the surrounding view stays usable. */
+.app .inline-err {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--peach-soft);
+  color: var(--peach-text);
+  font-size: 13px;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+/* Skeleton. One fill — the system's recessed tone — standing in for content
+   that has not arrived. Radius follows the thing it stands for: a text bar
+   14px or shorter is a pill, a taller bar or a filled block takes the real
+   element's own radius token, a glyph is a circle.
+
+   Deliberately static. design.md §2 gives the only looping animation to
+   .ai-dot ("the AI is working"), and a database read is not that. */
+.app .skel {
+  background: var(--surface-2);
+  flex-shrink: 0;
+  border-radius: var(--radius-pill);
+}
+.app .skel-block {
+  border-radius: var(--radius-sm);
+}
+.app .skel-tile {
+  border-radius: var(--radius-md);
+}
+.app .skel-dot {
+  border-radius: 50%;
+}
+
+/* Detail well. The machine-readable half of a failure — a raw error message,
+   an error digest, a requested path — demoted below the human sentence. Same
+   fill as .skel so the two read as one family. Wraps rather than truncates
+   (design.md §6.5). */
+.app .detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+}
+.app .detail-val {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* ============================================================================
+   Tailwind bridge for the views that have not been ported yet
+   (/app/queue, the North Star form). Remove once they move to `.app`.
+   ========================================================================= */
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -22,5 +532,4 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
