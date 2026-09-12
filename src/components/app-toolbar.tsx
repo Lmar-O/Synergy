@@ -1,22 +1,29 @@
 import Link from "next/link";
 
-import { ListIcon, PencilIcon, TargetIcon } from "@/components/app-icons";
+import {
+  ColumnsIcon,
+  ListIcon,
+  PencilIcon,
+  TargetIcon,
+} from "@/components/app-icons";
 
 /**
  * The main pane's toolbar from design.md §4: the view switcher on the left,
  * "Edit brief" on the right.
  *
  * §7-A settles that the app uses a segmented control rather than the landing's
- * pill-link nav. Board is absent because `/app/board` does not exist yet — a
- * third segment that 404s is worse than a two-segment control, and the
- * `.seg` recipe does not care how many items it holds. It joins when the route
- * does.
+ * pill-link nav. Board joined the control when `/app/board` landed; the `.seg`
+ * recipe never cared how many items it holds.
  *
  * Static markup rather than a client component: the active segment is a fact
  * about which page rendered it, so each page passes it rather than the browser
  * working it out again.
  */
-export function AppToolbar({ active }: { active: "focus" | "queue" }) {
+export function AppToolbar({
+  active,
+}: {
+  active: "focus" | "queue" | "board";
+}) {
   return (
     <div
       style={{
@@ -44,6 +51,14 @@ export function AppToolbar({ active }: { active: "focus" | "queue" }) {
         >
           <ListIcon />
           Queue
+        </Link>
+        <Link
+          href="/app/board"
+          className={active === "board" ? "seg-item on" : "seg-item"}
+          aria-current={active === "board" ? "page" : undefined}
+        >
+          <ColumnsIcon />
+          Board
         </Link>
       </nav>
 

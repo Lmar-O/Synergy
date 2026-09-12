@@ -141,6 +141,16 @@ export function ListIcon(props: IconProps) {
   );
 }
 
+export function ColumnsIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <rect x="2" y="3" width="3.2" height="10" rx="1" />
+      <rect x="6.4" y="3" width="3.2" height="7" rx="1" />
+      <rect x="10.8" y="3" width="3.2" height="10" rx="1" />
+    </Svg>
+  );
+}
+
 export function InboxIcon(props: IconProps) {
   return (
     <Svg {...props}>
@@ -270,4 +280,14 @@ export function PriorityBars({ priority }: { priority: number }) {
       ))}
     </svg>
   );
+}
+
+/** `SYN-004` — the mono ticket ref (design.md §2). */
+export function ticketRef(number: number): string {
+  return `SYN-${String(number).padStart(3, "0")}`;
+}
+
+/** "2.5h", never "2.5 hours" — and no trailing ".0". */
+export function hours(value: number): string {
+  return `${Number(value.toFixed(2))}h`;
 }

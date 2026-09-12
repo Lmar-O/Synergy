@@ -11,7 +11,14 @@ import { TryAgainButton } from "@/components/try-again-button";
  * hand over; this is the queue being unreadable, and the difference is the
  * whole message.
  */
-export function QueueDataError({ message }: { message: string }) {
+export function QueueDataError({
+  message,
+  active = "focus",
+}: {
+  message: string;
+  /** Which segment the failed view owns, so the control stays honest. */
+  active?: "focus" | "queue" | "board";
+}) {
   const emptyCounts = { total: 0, done: 0, blocked: 0, remaining: 0 };
 
   return (
@@ -50,7 +57,7 @@ export function QueueDataError({ message }: { message: string }) {
           background: "var(--bg)",
         }}
       >
-        <AppToolbar active="focus" />
+        <AppToolbar active={active} />
         <div
           style={{
             flex: 1,

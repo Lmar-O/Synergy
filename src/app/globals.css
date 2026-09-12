@@ -344,6 +344,66 @@
   display: flex;
 }
 
+/* ---- Board (design.md §7-A) ---- */
+
+/* Each column carries its own tint, reusing the fixed status mapping the chips
+   and glyphs already use — the board states the group's colour at column scale
+   rather than introducing a new hue. Cards stay on --card so they lift off the
+   tint instead of absorbing it. */
+
+.app .sect-count {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-light);
+  background: var(--surface-2);
+  padding: 1px 7px;
+  border-radius: var(--radius-pill);
+}
+
+.app .bcol {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  border-radius: var(--radius-md);
+  min-height: 120px;
+}
+.app .bcol-queued {
+  background: var(--yellow-soft);
+}
+.app .bcol-active {
+  background: var(--primary-soft);
+}
+.app .bcol-blocked {
+  background: var(--peach-soft);
+}
+.app .bcol-done {
+  background: var(--mint-soft);
+}
+.app .bcol-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.app .bcard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: var(--shadow-card);
+}
+.app .bcard.on {
+  box-shadow: var(--ring-primary);
+  border-color: transparent;
+}
+
 /* ---- Inputs ---- */
 
 .app .textarea {
