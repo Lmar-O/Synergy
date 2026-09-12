@@ -1,8 +1,12 @@
 import type { ReactNode } from "react";
 
-import { StatusGlyph, type GlyphStatus } from "@/components/app-icons";
+import {
+  RefreshIcon,
+  StatusGlyph,
+  type GlyphStatus,
+} from "@/components/app-icons";
 import { GenerateTicketsButton } from "@/components/generate-tickets-button";
-import type { QueueView } from "@/lib/queue";
+import type { QueueView, SequencedTicket } from "@/lib/queue";
 
 /**
  * The left rail from design.md §4: 320px, the whole queue in four sections,
@@ -13,12 +17,10 @@ import type { QueueView } from "@/lib/queue";
  * not get one.
  */
 
-export type RailTicket = {
-  id: string;
-  number: number;
+/** What a rail row needs on top of what the sequencing already requires. */
+export type RailTicket = SequencedTicket & {
   title: string;
   estimate_hours: number;
-  status: "queued" | "active" | "done" | "blocked";
 };
 
 const RAIL_WIDTH = 320;
@@ -45,9 +47,12 @@ export function RailShell({ children }: { children: ReactNode }) {
 export function RailHeader({
   counts,
   hasCurrent,
+  unknown = false,
 }: {
   counts: QueueView<RailTicket>["counts"];
   hasCurrent: boolean;
+  /** The read failed: zero counts would be a claim we cannot make. */
+  unknown?: boolean;
 }) {
   const pct = (n: number) => (counts.total > 0 ? (n / counts.total) * 100 : 0);
 
@@ -72,12 +77,19 @@ export function RailHeader({
         <span className="display" style={{ fontSize: 15 }}>
           Queue
         </span>
-        <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
-          {counts.total === 0
-            ? "No tickets yet"
-            : `${counts.done} of ${counts.total} done${
-                counts.blocked > 0 ? ` · ${counts.blocked} blocked` : ""
-              }`}
+        <span
+          style={{
+            fontSize: 12,
+            color: unknown ? "var(--text-light)" : "var(--text-muted)",
+          }}
+        >
+          {unknown
+            ? "Counts unavailable"
+            : counts.total === 0
+              ? "No tickets yet"
+              : `${counts.done} of ${counts.total} done${
+                  counts.blocked > 0 ? ` · ${counts.blocked} blocked` : ""
+                }`}
         </span>
       </div>
       {/* Segments in rail order: done → active → blocked (design.md §3). */}
@@ -97,7 +109,14 @@ export function RailHeader({
   );
 }
 
-export function RailFooter({ remaining }: { remaining: number }) {
+export function RailFooter({
+  remaining,
+  disabled = false,
+}: {
+  remaining: number;
+  /** Set when the queue could not be read — see the note at the call site. */
+  disabled?: boolean;
+}) {
   return (
     <div
       style={{
@@ -109,12 +128,25 @@ export function RailFooter({ remaining }: { remaining: number }) {
         gap: 8,
       }}
     >
-      <GenerateTicketsButton
-        variant="outline"
-        full
-        label={remaining > 0 ? "Regenerate queue" : "Generate tickets"}
-      />
-      {remaining > 0 && (
+      {disabled ? (
+        <button
+          type="button"
+          disabled
+          className="btn btn-outline btn-sm"
+          style={{ width: "100%" }}
+        >
+          <RefreshIcon />
+          Regenerate queue
+        </button>
+      ) : (
+        <GenerateTicketsButton
+          variant="outline"
+          full
+          label={remaining > 0 ? "Regenerate queue" : "Generate tickets"}
+        />
+      )}
+
+      {(disabled || remaining > 0) && (
         <span
           style={{
             fontSize: 11,
@@ -124,8 +156,9 @@ export function RailFooter({ remaining }: { remaining: number }) {
             textWrap: "pretty",
           }}
         >
-          Retires {remaining} unstarted ticket{remaining === 1 ? "" : "s"};
-          keeps done and blocked work.
+          {disabled
+            ? "Unavailable while the queue is unreadable — regenerating retires unstarted tickets."
+            : `Retires ${remaining} unstarted ticket${remaining === 1 ? "" : "s"}; keeps done and blocked work.`}
         </span>
       )}
     </div>

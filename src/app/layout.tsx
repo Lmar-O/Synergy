@@ -1,15 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
-import {
-  ClerkProvider,
-  Show,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/nextjs";
-import { AppHeaderGate } from "@/components/app-header-gate";
+import { ClerkProvider } from "@clerk/nextjs";
 import { clerkLocalization } from "@/lib/clerk-localization";
 import "./globals.css";
 
@@ -19,7 +11,7 @@ const geistSans = Geist({
 });
 
 // The display face. Lives at the root rather than on the landing page so auth
-// (and later /app) can reach var(--font-object-sans) — design.md §9.
+// and /app can reach var(--font-object-sans) — design.md §9.
 const objectSans = localFont({
   src: "./fonts/object-sans.ttf",
   variable: "--font-object-sans",
@@ -36,6 +28,19 @@ export const metadata: Metadata = {
     "Tell Synergy what you're building. It writes the sprint, tracks progress, and keeps you moving.",
 };
 
+/**
+ * The root layout carries fonts, Clerk and the stylesheet — and no chrome.
+ *
+ * It used to render a generic header behind a pathname gate, which each route
+ * that brought its own had to be added to. That list could never cover
+ * `not-found.tsx`: a 404 renders inside this layout, and nothing here can know
+ * a route 404'd, so the generic header stacked on top of the real one.
+ *
+ * Every route now brings its own header, so there is nothing left to gate:
+ * the landing page has its sticky nav, auth and the North Star brief have
+ * design.md §4's form-page wordmark, `/app` has §3's app header from
+ * `app/(shell)/layout.tsx`, and `not-found.tsx` has its own.
+ */
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -48,22 +53,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <ClerkProvider localization={clerkLocalization}>
-          <AppHeaderGate>
-            <header className="flex items-center justify-between border-b border-black/10 px-6 py-3 dark:border-white/15">
-              <Link href="/" className="font-semibold tracking-tight">
-                Synergy
-              </Link>
-              <nav className="flex items-center gap-3 text-sm">
-                <Show when="signed-out">
-                  <SignInButton />
-                  <SignUpButton />
-                </Show>
-                <Show when="signed-in">
-                  <UserButton />
-                </Show>
-              </nav>
-            </header>
-          </AppHeaderGate>
           <div className="flex flex-1 flex-col">{children}</div>
         </ClerkProvider>
       </body>

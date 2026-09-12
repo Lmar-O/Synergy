@@ -17,15 +17,20 @@ import { StarIcon } from "@/components/app-icons";
  * - `/onboarding` — avatar only. There is no North Star yet to name.
  * - `not-found` — wordmark only. It is global, so it cannot assume a signed-in
  *   user at all, and Clerk's `<UserButton />` would render nothing useful.
+ * - form pages (`bare`) — wordmark only and no bottom border. §4: a rule across
+ *   the top cuts the bloom layer in half.
  */
 export function AppHeader({
   productName,
   version,
   showUser = false,
+  bare = false,
 }: {
   productName?: string;
   version?: number;
   showUser?: boolean;
+  /** design.md §4's form-page header: no bottom border, transparent. */
+  bare?: boolean;
 }) {
   return (
     <header
@@ -35,8 +40,8 @@ export function AppHeader({
         justifyContent: "space-between",
         height: 56,
         padding: "0 20px",
-        borderBottom: "1px solid var(--border)",
-        background: "var(--bg)",
+        borderBottom: bare ? "none" : "1px solid var(--border)",
+        background: bare ? "transparent" : "var(--bg)",
         flexShrink: 0,
       }}
     >
