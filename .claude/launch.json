@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 3000
+    },
+    {
+      "name": "design-preview",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8765", "--directory", "/private/tmp/claude-501/-Users-lmaroria-Documents-GitHub-Synergy/9a59261f-a4aa-4a7d-9dc2-05a9662e0e69/scratchpad/ticket-design"],
+      "port": 8765
     }
   ]
 }
