@@ -1,0 +1,138 @@
+/* Auth pages — sign-in and sign-up.
+
+   Scoped under .app for the same reason landing.css is scoped under .landing:
+   the App Router keeps a route's CSS loaded after a client-side navigation
+   away from it, so anything global here would follow the user into /app.
+
+   Tokens and primitives are copied from design/system.css, which is the source
+   of truth — see design.md. Only the subset these two pages use is here; when
+   /app gets its own build, §9 says the whole token set moves to globals.css and
+   this file should then import from there rather than keep its own copy.
+
+   Dark uses prefers-color-scheme to match globals.css's existing strategy.
+   design/system.css authors dark on `.app.dark`; when a theme toggle lands,
+   that selector is what this should become. */
+
+.app {
+  --primary: oklch(60% 0.22 265);
+  --primary-hover: oklch(48% 0.22 265);
+  --primary-soft: oklch(92% 0.08 265);
+  --primary-text: oklch(48% 0.22 265);
+  --peach-soft: oklch(95% 0.06 42);
+  --peach-text: oklch(52% 0.16 42);
+
+  --bg: #ffffff;
+  --card: #ffffff;
+  --surface: oklch(98% 0.01 265);
+  --surface-2: oklch(96% 0.015 265);
+  /* The card's recessed footer strip: --surface in light, but --surface and
+     --card are the same value in dark, where it would flatten into the card. */
+  --card-footer: oklch(98% 0.01 265);
+  --text: #0d0d10;
+  --text-muted: #6b6b80;
+  --text-light: #9898aa;
+  --border: rgba(0,0,0,0.08);
+  --border-strong: rgba(0,0,0,0.14);
+
+  --bloom-warm: oklch(76% 0.18 345 / 0.34);
+  --bloom-cool: oklch(80% 0.14 220 / 0.26);
+
+  --radius-sm: 8px; --radius-lg: 20px; --radius-pill: 999px;
+  --font-display: var(--font-object-sans), system-ui, -apple-system, sans-serif;
+  --font-body: system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+  --shadow-card: 0 2px 10px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.05);
+  --shadow-btn: 0 1px 3px rgba(0,0,0,0.2);
+
+  font-family: var(--font-body); color: var(--text); background: var(--bg);
+  -webkit-font-smoothing: antialiased; line-height: 1.5; font-size: 14px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .app {
+    --primary: oklch(70% 0.19 265);
+    --primary-hover: oklch(78% 0.16 265);
+    --primary-soft: oklch(28% 0.08 265);
+    --primary-text: oklch(84% 0.11 265);
+    --peach-soft: oklch(27% 0.05 42);
+    --peach-text: oklch(84% 0.11 42);
+
+    --bg: oklch(15% 0.012 265);
+    --card: oklch(19.5% 0.012 265);
+    --surface: oklch(19.5% 0.012 265);
+    --surface-2: oklch(23% 0.014 265);
+    --card-footer: oklch(15% 0.012 265);
+    --text: oklch(96% 0.006 265);
+    --text-muted: oklch(72% 0.02 265);
+    --text-light: oklch(56% 0.02 265);
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.15);
+
+    /* The landing is light-only. At the light alphas these read as muddy slabs
+       over a 15% ground rather than glow, so dark runs them at ~0.65x. */
+    --bloom-warm: oklch(76% 0.18 345 / 0.22);
+    --bloom-cool: oklch(80% 0.14 220 / 0.17);
+
+    --shadow-card: 0 2px 10px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06);
+    --shadow-btn: 0 1px 3px rgba(0,0,0,0.5);
+  }
+}
+
+.app *, .app *::before, .app *::after { box-sizing: border-box; }
+.app a { color: var(--primary-text); text-decoration: none; }
+.app a:hover { color: var(--primary); }
+.app .display { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.01em; }
+.app .ico { width: 16px; height: 16px; flex-shrink: 0; display: block; }
+
+/* ---- Page shell (design.md §4, "Form pages") ---- */
+
+.auth-page {
+  min-height: 100dvh; background: var(--bg);
+  display: grid; grid-template-rows: 56px 1fr;
+  position: relative; overflow: hidden;
+}
+/* 56px and a 28px tile as §3, but no bottom border: this is not the app shell,
+   and a rule across the top would cut through the bloom layer. */
+.auth-head { display: flex; align-items: center; padding: 0 20px; }
+.auth-head, .auth-body { position: relative; z-index: 1; }
+.mark-lockup { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.mark {
+  width: 28px; height: 28px; border-radius: 8px; background: var(--primary);
+  color: #fff; display: flex; align-items: center; justify-content: center;
+}
+.app .mark-word { font-size: 17px; color: var(--text); }
+.auth-body {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 16px; padding: 24px 24px 56px;
+}
+.page-note { font-size: 13px; color: var(--text-light); margin: 8px 0 0; }
+
+/* ---- Bloom layer — form pages only (design.md §3/§4) ---- */
+
+.bloom-layer { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.bloom { position: absolute; width: 520px; height: 440px; border-radius: 50%; filter: blur(100px); }
+.bloom-warm { top: -160px; left: -120px; background: var(--bloom-warm); }
+.bloom-cool { bottom: -160px; right: -120px; background: var(--bloom-cool); }
+
+/* ---- Loading skeleton, shown by <ClerkLoading> ----
+   Bars sit in line boxes the height of the text they stand in for, so the card
+   measures the same before and after Clerk mounts and nothing shifts.
+   Static: design.md §2 reserves the only looping animation for .ai-dot. */
+
+.auth-skeleton {
+  width: 400px; padding: 28px; display: flex; flex-direction: column;
+  background: var(--card); border-radius: var(--radius-lg); box-shadow: var(--shadow-card);
+}
+.skel { background: var(--surface-2); border-radius: var(--radius-sm); }
+.skel-pill { border-radius: var(--radius-pill); }
+.skel-line { display: flex; align-items: center; }
+.skel-header { display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px; }
+.skel-social { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.skel-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
+.skel-divider-line { flex: 1; height: 1px; background: var(--border); }
+.skel-field { display: flex; flex-direction: column; gap: 6px; }
+.skel-submit { margin-top: 20px; }
+.skel-footer {
+  display: flex; justify-content: center; margin: 24px -28px -28px; padding: 16px;
+  border-top: 1px solid var(--border); background: var(--card-footer);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
