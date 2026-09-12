@@ -169,7 +169,7 @@ a { color: var(--primary-text); text-decoration: none; } a:hover { color: var(--
 
   </style>
 </helmet>
-<div class="app {{theme}}" style="width: 1440px; min-height: 3140px; display: flex; flex-direction: column; background: var(--bg);">
+<div class="app {{theme}}" style="width: 1440px; min-height: 3320px; display: flex; flex-direction: column; background: var(--bg);">
 
 <div style="padding: 48px 56px; display: flex; flex-direction: column; gap: 8px; flex: 1;">
   <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px;">
@@ -360,7 +360,7 @@ a { color: var(--primary-text); text-decoration: none; } a:hover { color: var(--
 
   
 <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; align-items: start; padding: 24px 0; border-top: 1px solid var(--border);">
-  <div style="display: flex; flex-direction: column; gap: 4px;"><span class="display" style="font-size: 16px;">Board card</span><span style="font-size: 12px; color: var(--text-light); line-height: 1.5;">Ref + priority, title, meta. Active gets the primary ring.</span></div>
+  <div style="display: flex; flex-direction: column; gap: 4px;"><span class="display" style="font-size: 16px;">Board card</span><span style="font-size: 12px; color: var(--text-light); line-height: 1.5;">Ref + priority, title, meta. Active gets the primary ring. Sits on --card inside a tinted column — the card never carries the group colour itself.</span></div>
   <div style="display: flex; flex-direction: column; gap: 14px;">
     <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 760px;">
       
@@ -429,6 +429,36 @@ a { color: var(--primary-text); text-decoration: none; } a:hover { color: var(--
 </div>
 
   <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; align-items: start; padding: 24px 0; border-top: 1px solid var(--border);">
+  <div style="display: flex; flex-direction: column; gap: 4px;"><span class="display" style="font-size: 16px;">Board column</span><span style="font-size: 12px; color: var(--text-light); line-height: 1.5;">One fixed tint per group — queued yellow, active primary, blocked peach, done mint, the same mapping as the chips and glyphs. Cards stay on --card so they lift off the tint. No new hues.</span></div>
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;">
+    <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+      <div class="bcol-head"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-light)"><circle cx="8" cy="8" r="5.5"></circle></svg><span style="color: var(--yellow-text);">Queued</span><span class="sect-count">4</span></div>
+      <div class="bcol bcol-queued" style="min-height: 92px;">
+        <div class="bcard"><div style="display: flex; align-items: center; gap: 8px;"><span class="mono" style="color: var(--text-light);">SYN-004</span></div><div style="font-size: 14px; line-height: 1.35;">Card sits on --card, above the tint</div></div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+      <div class="bcol-head"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)"><circle cx="8" cy="8" r="5.5"></circle><circle cx="8" cy="8" r="2.5" fill="currentColor" stroke="none"></circle></svg><span style="color: var(--primary-text);">Active</span><span class="sect-count">1</span></div>
+      <div class="bcol bcol-active" style="min-height: 92px;">
+        <div class="bcard"><div style="display: flex; align-items: center; gap: 8px;"><span class="mono" style="color: var(--text-light);">SYN-001</span></div><div style="font-size: 14px; line-height: 1.35;">Card sits on --card, above the tint</div></div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+      <div class="bcol-head"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--peach-text)"><circle cx="8" cy="8" r="5.5"></circle><path d="M4.2 4.2l7.6 7.6"></path></svg><span style="color: var(--peach-text);">Blocked</span><span class="sect-count">1</span></div>
+      <div class="bcol bcol-blocked" style="min-height: 92px;">
+        <div class="bcard"><div style="display: flex; align-items: center; gap: 8px;"><span class="mono" style="color: var(--text-light);">SYN-001</span></div><div style="font-size: 14px; line-height: 1.35;">Card sits on --card, above the tint</div></div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+      <div class="bcol-head"><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--mint)"><circle cx="8" cy="8" r="6.5" fill="currentColor" stroke="none"></circle><path d="M5 8.2l2 2 4-4.2" stroke="var(--on-dark)" stroke-width="1.8"></path></svg><span style="color: var(--mint-text);">Done</span><span class="sect-count">3</span></div>
+      <div class="bcol bcol-done" style="min-height: 92px;">
+        <div class="bcard"><div style="display: flex; align-items: center; gap: 8px;"><span class="mono" style="color: var(--text-light);">SYN-003</span></div><div style="font-size: 14px; line-height: 1.35;">Card sits on --card, above the tint</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div style="display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; align-items: start; padding: 24px 0; border-top: 1px solid var(--border);">
   <div style="display: flex; flex-direction: column; gap: 4px;"><span class="display" style="font-size: 16px;">Progress</span><span style="font-size: 12px; color: var(--text-light); line-height: 1.5;">Segments in this order, always: mint (done) → primary (active) → peach (blocked), on surface-2. The uncoloured remainder is queued work.</span></div>
   <div style="display: flex; flex-direction: column; gap: 14px;">
     <div style="width: 300px; display: flex; flex-direction: column; gap: 8px;">
@@ -474,7 +504,7 @@ a { color: var(--primary-text); text-decoration: none; } a:hover { color: var(--
 </div>
 </div>
 </x-dc>
-<script data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Theme"},"$preview":{"width":1440,"height":3140}}'>
+<script data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Theme"},"$preview":{"width":1440,"height":3320}}'>
 class Component extends DCLogic {
   renderVals() { return { theme: this.props.theme ?? 'light' }; }
 }

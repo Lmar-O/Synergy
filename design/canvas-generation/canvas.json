@@ -1,0 +1,91 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "title": "1 \u00b7 Generating (first run)",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900
+    },
+    {
+      "file": "Reveal.dc.html",
+      "title": "2 \u00b7 Reveal",
+      "x": 1560,
+      "y": 0,
+      "w": 1440,
+      "h": 900
+    },
+    {
+      "file": "Confirm.dc.html",
+      "title": "3 \u00b7 Confirm regenerate",
+      "x": 3120,
+      "y": 0,
+      "w": 1440,
+      "h": 900
+    },
+    {
+      "file": "Regenerating.dc.html",
+      "title": "4 \u00b7 Regenerating",
+      "x": 0,
+      "y": 1160,
+      "w": 1440,
+      "h": 900
+    },
+    {
+      "file": "Failed.dc.html",
+      "title": "5 \u00b7 Failed",
+      "x": 1560,
+      "y": 1160,
+      "w": 1440,
+      "h": 900
+    }
+  ],
+  "annotations": [
+    {
+      "id": "no-stages",
+      "x": 0,
+      "y": -300,
+      "w": 700,
+      "text": "Why there is no staged status line.\n\ngenerateTickets() in src/lib/actions/generate.ts is one blocking server action: auth, read North Star, read live tickets, ONE non-streaming chat.completions.create, log, validate, insert, supersede. The client observes exactly two things \u2014 pending true, then pending false with a message. There is no stream and no progress event, so \"Reading your North Star\u2026 Sequencing 9 tickets\u2026\" would be invented, and the ticket count is not known until the model has already returned.\n\nWhat the wait shows instead is true at the moment it is painted: the .ai-dot (the AI is working), the 10-30s expectation from the current button copy, the elapsed seconds (the client's own timer), and a static summary of what actually went into the prompt. \"Up to 10 tickets\" is the system prompt's own cap, not a guess."
+    },
+    {
+      "id": "elapsed-30s",
+      "x": 740,
+      "y": -300,
+      "w": 380,
+      "text": "Past 30s the working line changes once \u2014 \"Still working. This is slower than usual.\" \u2014 and nothing else moves. That is honest: elapsed time is the only thing the client can measure. No percentage, no fake stage advance, no spinner that implies a known duration."
+    },
+    {
+      "id": "reveal-motion",
+      "x": 1560,
+      "y": -300,
+      "w": 700,
+      "text": "The entrance, frozen.\n\ndesign.md \u00a72 gives a new object taking a slot ~250ms of fade + 8px slide-up, and \u00a71 rules out sequenced motion \u2014 so this is TWO objects arriving, the rail list and the focus card, not nine staggered rows. Both artboards freeze at ~170ms (opacity .78, 2px of the 8px left to travel). The Motion tweak flips to 'settled' to compare against the resting frame.\n\nSYN-001, not SYN-004, holds the Focus slot here. This is the first generation, so nothing is done, and queue.ts only surfaces a ticket whose depends_on are all done. SYN-004 depends on SYN-003; it cannot be current until three tickets are finished. Everything behind the two dependency-free tickets carries the dashed waiting ring."
+    },
+    {
+      "id": "rail-truth",
+      "x": 0,
+      "y": 2120,
+      "w": 700,
+      "text": "The rail stays truthful while a regeneration is in flight.\n\nsuperseded_at is stamped LAST in generate.ts \u2014 after the insert succeeds \u2014 precisely so a failed call cannot leave the user with nothing to work on. So during a regeneration all nine tickets are still live: the count line still reads 3 of 9 done, 1 blocked, and the progress bar does not move. The 45% fade on the Now and Up next rows is a preview of what this action will retire, not a claim that it already has. Blocked and Done stay at full opacity because they genuinely survive."
+    },
+    {
+      "id": "trigger-locality",
+      "x": 740,
+      "y": 2120,
+      "w": 380,
+      "text": "Status appears where the trigger was. The stall card's .btn-primary keeps its status in the card (1); the rail footer's .btn-outline keeps its confirmation, its working state and its error in the rail footer (3, 4, 5). Both triggers share one pending state, so the other one goes .is-disabled rather than staying clickable."
+    },
+    {
+      "id": "failed-note",
+      "x": 1560,
+      "y": 2120,
+      "w": 700,
+      "text": "Failure, in the \u00a73 inline-error recipe: peach-soft ground, peach-text, alert glyph, --radius-sm, never a modal or a toast. The human sentence leads and says what survives (design.md \u00a75); the raw model string is demoted into a detail well below it, because it is the only thing worth pasting into a bug report.\n\nThe rail is fully restored \u2014 solid rows, unchanged counts \u2014 and its footer returns to the ordinary Regenerate queue button with a compact .err line above it, so both triggers work again.\n\nThe 503 string is sample text in the shape Gemini actually returns; swap it for the real error.message."
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  }
+}
